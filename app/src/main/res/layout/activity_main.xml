@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/nero_8"
-    tools:context=".activities.mainActivity.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -37,9 +37,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white"
-
-                    />
+                    app:tint="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/search_show_case"
@@ -50,9 +48,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/filter_show_case"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white"
-
-                    />
+                    app:tint="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/hot_show_case"
@@ -63,9 +59,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/search_show_case"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white"
-
-                    />
+                    app:tint="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/profile_show_case"
@@ -77,9 +71,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/hot_show_case"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/sunGlow"
-
-                    />
+                    app:tint="@color/sunGlow" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,9 +93,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white"
-
-                    />
+                    app:tint="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/profile_category"
@@ -115,9 +105,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/search_category"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/sunGlow"
-
-                    />
+                    app:tint="@color/sunGlow" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -131,25 +119,26 @@
                 android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="@dimen/_0dp"
         android:layout_height="@dimen/_0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationView"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/bnv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigationView"
+        android:id="@+id/bnv"
         android:layout_width="@dimen/_0dp"
         android:layout_height="60dp"
         android:background="@color/nero_5"
@@ -158,8 +147,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu"
-
-        />
+        app:menu="@menu/bottom_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

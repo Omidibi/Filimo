@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:background="#F3DE6E"
     android:layout_height="match_parent"
-    tools:context=".ui.main.myFilms.viewPager.bookmark.BookmarkFilmFragment">
+    tools:context=".fragments.bookmarkFragment.BookmarkFragment">
 
 
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C9EF5D"
-    tools:context=".ui.main.myFilms.viewPager.offlineGallery.OfflineGalleryFragment">
+    tools:context=".fragments.offlineGalleryFragment.OfflineGalleryFragment">
 
 
 

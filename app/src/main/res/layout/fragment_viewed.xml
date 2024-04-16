@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:background="#A6E8F3"
     android:layout_height="match_parent"
-    tools:context=".ui.main.myFilms.viewPager.viewed.ViewedFragment">
+    tools:context=".fragments.viewedFragment.ViewedFragment">
 
 
 

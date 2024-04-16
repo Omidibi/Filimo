@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.omid.filimo.R
-import com.omid.filimo.model.models.Video
-import com.omid.filimo.util.configuration.AppConfiguration
+import com.omid.filimo.model.Video
+import com.omid.filimo.utils.configuration.AppConfiguration
 
 class LatestVideoAdapter(private val latestList : List<Video>) : RecyclerView.Adapter<LatestVH>() {
 
