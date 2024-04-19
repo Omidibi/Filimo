@@ -1,4 +1,4 @@
-package com.omid.filimo.adapter
+package com.omid.filimo.ui.dashboard.showCase
 
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omid.filimo.R
 
 class FeaturedVH(itemView: View) : RecyclerView.ViewHolder(itemView){
-    val cardFeatured = itemView.findViewById<CardView>(R.id.card_featured)!!
+    val cvFeatured = itemView.findViewById<CardView>(R.id.cv_featured)!!
     val imgFeatured = itemView.findViewById<AppCompatImageView>(R.id.img_featured)!!
     val txtFeatured = itemView.findViewById<AppCompatTextView>(R.id.txt_featured)!!
 }

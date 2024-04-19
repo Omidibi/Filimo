@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import com.omid.filimo.utils.configuration.AppConfiguration
 
-class IranSansTextView : AppCompatTextView {
+class ShabnamTextView: AppCompatTextView {
 
     constructor(context: Context?) : super(context!!) {
         extracted()
@@ -21,7 +21,7 @@ class IranSansTextView : AppCompatTextView {
     }
 
     private fun extracted() {
-        Typeface.createFromAsset(AppConfiguration.getContext().assets, "fonts/IRANSans/iran_sans_mobile.ttf").apply {
+        Typeface.createFromAsset(AppConfiguration.getContext().assets, "fonts/Shabnam/Shabnam.ttf").apply {
             setTypeface(this@apply)
         }
     }

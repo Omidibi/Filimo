@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.apply {
             setContentView(root)
+            MainWidget.bnv = bnv
+            MainWidget.toolbar = toolbar
+            MainWidget.clShowCase = clShowCase
+            MainWidget.clCategoryMyFilms = clCategoryMyFilms
             navHost = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
             navController = navHost.navController
             NavigationUI.setupWithNavController(bnv, navController)

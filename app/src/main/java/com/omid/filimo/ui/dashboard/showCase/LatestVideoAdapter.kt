@@ -1,4 +1,4 @@
-package com.omid.filimo.adapter
+package com.omid.filimo.ui.dashboard.showCase
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,8 +11,7 @@ import com.omid.filimo.utils.configuration.AppConfiguration
 class LatestVideoAdapter(private val latestList : List<Video>) : RecyclerView.Adapter<LatestVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LatestVH {
-        val view = LayoutInflater.from(AppConfiguration.getContext()).inflate(R.layout.latest_row,null)
-        return LatestVH(view)
+        return LatestVH(LayoutInflater.from(AppConfiguration.getContext()).inflate(R.layout.latest_row,null))
     }
 
     override fun getItemCount(): Int {

@@ -9,15 +9,41 @@
         android:id="@+id/showCaseFragment"
         android:name="com.omid.filimo.ui.dashboard.showCase.ShowCaseFragment"
         android:label="fragment_showcase"
-        tools:layout="@layout/fragment_showcase" />
+        tools:layout="@layout/fragment_showcase" >
+        <action
+            android:id="@+id/action_showCaseFragment_to_allVideoFragment"
+            app:destination="@id/allVideoFragment" />
+        <action
+            android:id="@+id/action_showCaseFragment_to_latestVideoFragment"
+            app:destination="@id/latestVideoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.omid.filimo.ui.dashboard.category.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_videoListByCatIdFragment"
+            app:destination="@id/videoListByCatIdFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myFilmsFragment"
         android:name="com.omid.filimo.ui.dashboard.myFilms.MyFilmsFragment"
         android:label="fragment_myfilms"
         tools:layout="@layout/fragment_myfilms" />
+    <fragment
+        android:id="@+id/allVideoFragment"
+        android:name="com.omid.filimo.fragments.allVideoFragment.AllVideoFragment"
+        android:label="fragment_all_video"
+        tools:layout="@layout/fragment_all_video" />
+    <fragment
+        android:id="@+id/latestVideoFragment"
+        android:name="com.omid.filimo.fragments.latestVideoFragment.LatestVideoFragment"
+        android:label="fragment_latest_video"
+        tools:layout="@layout/fragment_latest_video" />
+    <fragment
+        android:id="@+id/videoListByCatIdFragment"
+        android:name="com.omid.filimo.fragments.videoListByCatIdFragment.VideoListByCatIdFragment"
+        android:label="fragment_video_list_by_cat_id"
+        tools:layout="@layout/fragment_video_list_by_cat_id" />
 </navigation>

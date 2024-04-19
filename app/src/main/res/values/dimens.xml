@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="_0dp">0dp</dimen>
+    <dimen name="_2dp">2dp</dimen>
+    <dimen name="_4dp">4dp</dimen>
+    <dimen name="_6dp">6dp</dimen>
+    <dimen name="_8dp">8dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
+    <dimen name="_12dp">12dp</dimen>
+    <dimen name="_15sp">15sp</dimen>
+    <dimen name="_16sp">16sp</dimen>
+    <dimen name="_16dp">16dp</dimen>
+    <dimen name="_17sp">17sp</dimen>
     <dimen name="_18sp">18sp</dimen>
     <dimen name="_20dp">20dp</dimen>
     <dimen name="_26dp">26dp</dimen>
@@ -8,6 +18,9 @@
     <dimen name="_30dp">30dp</dimen>
     <dimen name="_45dp">45dp</dimen>
     <dimen name="_65dp">65dp</dimen>
+    <dimen name="_100dp">100dp</dimen>
+    <dimen name="_110dp">110dp</dimen>
+    <dimen name="_120dp">120dp</dimen>
     <dimen name="_140dp">140dp</dimen>
     <dimen name="_150dp">150dp</dimen>
     <dimen name="_180dp">180dp</dimen>
@@ -15,6 +28,7 @@
     <dimen name="_220dp">220dp</dimen>
     <dimen name="_230dp">230dp</dimen>
     <dimen name="_250dp">250dp</dimen>
+    <dimen name="_260dp">260dp</dimen>
     <dimen name="_280dp">280dp</dimen>
     <dimen name="_300dp">300dp</dimen>
     <dimen name="_350dp">350dp</dimen>
@@ -30,5 +44,6 @@
     <dimen name="cardView_cor_25">25dp</dimen>
     <dimen name="PageIndicator_padding">12dp</dimen>
     <dimen name="PageIndicator_radius">8dp</dimen>
+    <dimen name="_170dp">170dp</dimen>
 
 </resources>

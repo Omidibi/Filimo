@@ -12,6 +12,7 @@
         android:layout_width="@dimen/_0dp"
         android:layout_height="@dimen/_0dp"
         android:id="@+id/srl"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +29,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_banner"
                     android:layout_width="@dimen/_0dp"
-                    android:layout_height="@dimen/_280dp"
+                    android:layout_height="@dimen/_250dp"
+                    android:layout_margin="@dimen/_6dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -37,6 +39,7 @@
                         android:id="@+id/cv_banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:cardCornerRadius="@dimen/_8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -51,9 +54,7 @@
                                 android:layout_height="match_parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-
-                                />
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <com.rd.PageIndicatorView
                                 android:id="@+id/pageIndicatorView"
@@ -78,10 +79,169 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+                    android:id="@+id/featured_video"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/cl_banner"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_margin="@dimen/margin_8"
+                    android:text="@string/featured_video"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_17sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_featured_video"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_250dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/featured_video" />
+
+                <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+                    android:id="@+id/latest_video"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rv_featured_video"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_margin="@dimen/margin_8"
+                    android:text="@string/latest_videos"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_17sp" />
+
+                <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+                    android:id="@+id/more_latest"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rv_featured_video"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_margin="@dimen/margin_8"
+                    android:layout_height="wrap_content"
+                    android:text="@string/see_all"
+                    android:textColor="@color/sunGlow"
+                    android:textSize="@dimen/_17sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_latest_video"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_250dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/latest_video" />
+
+                <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+                    android:id="@+id/all_video"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rv_latest_video"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_margin="@dimen/margin_8"
+                    android:text="@string/all_videos"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_17sp" />
+
+                <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+                    android:id="@+id/more_all"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rv_latest_video"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_margin="@dimen/margin_8"
+                    android:layout_height="wrap_content"
+                    android:text="@string/see_all"
+                    android:textColor="@color/sunGlow"
+                    android:textSize="@dimen/_17sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_all_video"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_250dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/all_video" />
+
+                <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+                    android:id="@+id/categories"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rv_all_video"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_margin="@dimen/margin_8"
+                    android:text="@string/category"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_17sp" />
+
+                <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+                    android:id="@+id/more_categories"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rv_all_video"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_margin="@dimen/margin_8"
+                    android:layout_height="wrap_content"
+                    android:text="@string/see_all"
+                    android:textColor="@color/sunGlow"
+                    android:textSize="@dimen/_17sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_categories"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_250dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/categories" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pb_show_case"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/live_no_connection"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_0dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/live_pic_no_connection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_connection"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+            android:id="@+id/live_txt_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30dp"
+            android:text="@string/no_internet_connection"
+            android:textColor="@color/BlueWhale"
+            android:textSize="@dimen/_17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/live_pic_no_connection" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

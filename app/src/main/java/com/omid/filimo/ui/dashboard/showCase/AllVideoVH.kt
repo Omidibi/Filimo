@@ -10,5 +10,5 @@ import com.omid.filimo.R
 class AllVideoVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val txtTitle = itemView.findViewById<AppCompatTextView>(R.id.txt_all_video)!!
     val imgVideo = itemView.findViewById<AppCompatImageView>(R.id.img_all_video)!!
-    val cardVideo = itemView.findViewById<CardView>(R.id.card_all_video)!!
+    val cvAllVideo = itemView.findViewById<CardView>(R.id.cv_all_video)!!
 }

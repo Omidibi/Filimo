@@ -1,4 +1,4 @@
-package com.omid.filimo.adapter
+package com.omid.filimo.ui.dashboard.showCase
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,8 +11,7 @@ import com.omid.filimo.utils.configuration.AppConfiguration
 class FeaturedVideoAdapter(private val featuredList : List<Video>) : RecyclerView.Adapter<FeaturedVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeaturedVH {
-        val view = LayoutInflater.from(AppConfiguration.getContext()).inflate(R.layout.featured_row,null)
-        return FeaturedVH(view)
+        return FeaturedVH(LayoutInflater.from(AppConfiguration.getContext()).inflate(R.layout.featured_row,null))
     }
 
     override fun getItemCount(): Int {

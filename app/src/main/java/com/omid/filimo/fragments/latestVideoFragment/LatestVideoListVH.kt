@@ -1,4 +1,4 @@
-package com.omid.filimo.adapter
+package com.omid.filimo.fragments.latestVideoFragment
 
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
@@ -7,8 +7,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.omid.filimo.R
 
-class LatestVH(itemView: View) : RecyclerView.ViewHolder(itemView){
-    val cardLatest = itemView.findViewById<CardView>(R.id.card_latest)!!
+class LatestVideoListVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    val cvLatest = itemView.findViewById<CardView>(R.id.cv_latest)!!
     val imgLatest = itemView.findViewById<AppCompatImageView>(R.id.img_latest)!!
     val txtLatest = itemView.findViewById<AppCompatTextView>(R.id.txt_latest)!!
 }

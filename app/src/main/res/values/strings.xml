@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Filimo</string>
+    <string name="app_name">فیلیمو</string>
     <string name="featured_video">ویدیوهای ویژه</string>
-    <string name="all_videos">همه ی ویدیوها</string>
+    <string name="all_videos">همه ویدیوها</string>
     <string name="latest_videos">آخرین ویدیوها</string>
     <string name="home">خانه</string>
     <string name="category">دسته بندی</string>
@@ -9,6 +9,8 @@
     <string name="Showcase">ویترین</string>
     <string name="myFilms">فیلم های من</string>
     <string name="filimo">فیلیمو</string>
+    <string name="see_all">مشاهده همه</string>
+    <string name="no_internet_connection">بدون اتصال اینترنت</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
