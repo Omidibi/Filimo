@@ -15,9 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_my_films"
@@ -28,8 +26,7 @@
         app:tabTextColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
-        />
+        app:tabTextAppearance="@style/tabText" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_tab"
@@ -38,8 +35,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_my_films"
-
-        />
+        app:layout_constraintTop_toBottomOf="@id/tab_my_films" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager
 import com.omid.filimo.R
 import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.databinding.FragmentShowcaseBinding
+import com.omid.filimo.ui.customView.customUI.CustomUI
 import com.omid.filimo.utils.ProgressBarStatus
 import java.util.Timer
 import java.util.TimerTask
@@ -162,6 +163,14 @@ class ShowCaseFragment : Fragment() {
                 findNavController().navigate(R.id.action_showCaseFragment_to_latestVideoFragment)
                 MainWidget.bnv.visibility = View.GONE
                 MainWidget.toolbar.visibility = View.GONE
+            }
+
+            moreCategories.setOnClickListener {
+                findNavController().navigate(R.id.action_showCaseFragment_to_categoryFragment)
+                MainWidget.clShowCase.visibility = View.GONE
+                MainWidget.clCategoryMyFilms.visibility = View.VISIBLE
+                MainWidget.bnv.menu.findItem(R.id.item_category).isChecked = true
+                CustomUI.changeStatusOnClickEvent(MainWidget.bnv)
             }
         }
     }

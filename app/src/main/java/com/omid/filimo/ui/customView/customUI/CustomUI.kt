@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.omid.filimo.R
 import com.omid.filimo.databinding.ActivityMainBinding
 import com.omid.filimo.utils.configuration.AppConfiguration
@@ -62,6 +63,22 @@ class CustomUI {
                 val textColor = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked)),
                     intArrayOf(Color.parseColor("#00000000"), ContextCompat.getColor(AppConfiguration.getContext(),R.color.sunGlow)))
                 bnv.itemTextColor = textColor
+            }
+        }
+
+        fun changeStatusOnClickEvent(bnv: BottomNavigationView){
+            val defaultView = bnv.findViewById<View>(R.id.item_category)
+            val defaultAnimation = ObjectAnimator.ofFloat(defaultView, "translationY", -15f)
+            defaultAnimation.duration = 200
+            defaultAnimation.start()
+            for (i in 0 until bnv.menu.size()) {
+                if (bnv.menu.getItem(i).itemId != R.id.item_category) {
+                    val unselectedView = bnv.findViewById<View>(bnv.menu.getItem(i).itemId)
+                    unselectedView?.clearAnimation()
+                    val unselectedAnimation = ObjectAnimator.ofFloat(unselectedView, "translationY", 10f)
+                    unselectedAnimation.duration = 200
+                    unselectedAnimation.start()
+                }
             }
         }
     }

@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setupBinding()
         currentPage()
         setupBnvInActivity()
+        clickEvent()
     }
 
     private fun setupBinding() {
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun currentPage(){
+    private fun currentPage() {
         binding.apply {
             navController.navigate(R.id.showCaseFragment)
             bnv.menu.findItem(R.id.item_showcase).isChecked = true
@@ -74,6 +75,22 @@ class MainActivity : AppCompatActivity() {
                 }
                 CustomUI.bnvSetOnItemSelectListenerView(binding, it)
                 return@setOnItemSelectedListener true
+            }
+        }
+    }
+
+    private fun clickEvent(){
+        binding.apply {
+            searchShowCase.setOnClickListener {
+                navController.navigate(R.id.searchFragment)
+                MainWidget.bnv.visibility = View.GONE
+                MainWidget.toolbar.visibility = View.GONE
+            }
+
+            searchCategory.setOnClickListener {
+                navController.navigate(R.id.searchFragment)
+                MainWidget.bnv.visibility = View.GONE
+                MainWidget.toolbar.visibility = View.GONE
             }
         }
     }

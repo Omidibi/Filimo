@@ -28,7 +28,7 @@ class MyFilmsFragment : Fragment() {
         binding = FragmentMyfilmsBinding.inflate(layoutInflater)
     }
 
-    private fun setupTabLayout(){
+    private fun setupTabLayout() {
         binding.apply {
             tabLayout = tabMyFilms
             tabLayout.addTab(tabLayout.newTab().setText("نشان شده ها"))

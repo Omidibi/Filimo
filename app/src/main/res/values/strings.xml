@@ -10,8 +10,6 @@
     <string name="myFilms">فیلم های من</string>
     <string name="filimo">فیلیمو</string>
     <string name="see_all">مشاهده همه</string>
+    <string name="search">جستجو</string>
     <string name="no_internet_connection">بدون اتصال اینترنت</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>

@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_showCaseFragment_to_latestVideoFragment"
             app:destination="@id/latestVideoFragment" />
+        <action
+            android:id="@+id/action_showCaseFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_showCaseFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -46,4 +52,9 @@
         android:name="com.omid.filimo.fragments.videoListByCatIdFragment.VideoListByCatIdFragment"
         android:label="fragment_video_list_by_cat_id"
         tools:layout="@layout/fragment_video_list_by_cat_id" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.omid.filimo.fragments.searchFragment.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

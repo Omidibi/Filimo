@@ -9,9 +9,9 @@
     tools:context=".ui.dashboard.showCase.ShowCaseFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl"
         android:layout_width="@dimen/_0dp"
         android:layout_height="@dimen/_0dp"
-        android:id="@+id/srl"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,117 +80,117 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.omid.filimo.ui.customView.customFonts.IranSansTextView
-                    android:id="@+id/featured_video"
-                    android:layout_width="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/cl_banner"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_margin="@dimen/margin_8"
-                    android:text="@string/featured_video"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_17sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_featured_video"
-                    android:layout_width="@dimen/_0dp"
-                    android:layout_height="@dimen/_250dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/margin_8"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/featured_video" />
-
-                <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                     android:id="@+id/latest_video"
                     android:layout_width="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/rv_featured_video"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_8"
                     android:text="@string/latest_videos"
-                    android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_17sp" />
+                    android:textSize="@dimen/_17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_banner" />
 
                 <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                     android:id="@+id/more_latest"
                     android:layout_width="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/rv_featured_video"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_margin="@dimen/margin_8"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_8"
                     android:text="@string/see_all"
                     android:textColor="@color/sunGlow"
-                    android:textSize="@dimen/_17sp" />
+                    android:textSize="@dimen/_17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_banner" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_latest_video"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="@dimen/_250dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/latest_video" />
 
                 <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                     android:id="@+id/all_video"
                     android:layout_width="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/rv_latest_video"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_8"
                     android:text="@string/all_videos"
-                    android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_17sp" />
+                    android:textSize="@dimen/_17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_latest_video" />
 
                 <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                     android:id="@+id/more_all"
                     android:layout_width="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/rv_latest_video"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_margin="@dimen/margin_8"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_8"
                     android:text="@string/see_all"
                     android:textColor="@color/sunGlow"
-                    android:textSize="@dimen/_17sp" />
+                    android:textSize="@dimen/_17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_latest_video" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_all_video"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="@dimen/_250dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/all_video" />
 
                 <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                     android:id="@+id/categories"
                     android:layout_width="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/rv_all_video"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_8"
                     android:text="@string/category"
-                    android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_17sp" />
+                    android:textSize="@dimen/_17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_all_video" />
 
                 <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                     android:id="@+id/more_categories"
                     android:layout_width="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/rv_all_video"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_margin="@dimen/margin_8"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_8"
                     android:text="@string/see_all"
                     android:textColor="@color/sunGlow"
-                    android:textSize="@dimen/_17sp" />
+                    android:textSize="@dimen/_17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_all_video" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_categories"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="@dimen/_250dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/categories" />
+
+                <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+                    android:id="@+id/featured_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_8"
+                    android:text="@string/featured_video"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_categories" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_featured_video"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_250dp"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/featured_video" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -199,9 +199,9 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
+        android:id="@+id/pb_show_case"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/pb_show_case"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
