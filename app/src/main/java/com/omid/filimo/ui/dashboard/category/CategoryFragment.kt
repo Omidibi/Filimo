@@ -1,27 +1,19 @@
 package com.omid.filimo.ui.dashboard.category
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omid.filimo.databinding.FragmentCategoryBinding
-import com.omid.filimo.utils.ProgressBarStatus
+import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
 
 class CategoryFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var categoryViewModel: CategoryViewModel
-    private lateinit var owner: LifecycleOwner
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        owner = this
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setupBinding()
@@ -37,7 +29,7 @@ class CategoryFragment : Fragment() {
 
     private fun setupBinding() {
         binding = FragmentCategoryBinding.inflate(layoutInflater)
-        categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+        categoryViewModel = ViewModelProvider(requireActivity())[CategoryViewModel::class.java]
     }
 
     private fun checkNetwork(){
@@ -57,12 +49,12 @@ class CategoryFragment : Fragment() {
     private fun categoryObserver(){
         binding.apply {
             if (isAdded){
-                categoryViewModel.checkNetworkConnection.observe(owner){ isConnect->
+                categoryViewModel.checkNetworkConnection.observe(viewLifecycleOwner){ isConnect->
                     pbCategory.visibility = View.VISIBLE
                     rvCategory.visibility = View.GONE
                     liveNoConnection.visibility = View.GONE
                     if (isConnect){
-                        categoryViewModel.categoryModel.observe(owner){ categoryModel->
+                        categoryViewModel.categoryModel.observe(viewLifecycleOwner){ categoryModel->
                             pbCategory.visibility = View.GONE
                             rvCategory.visibility = View.VISIBLE
                             liveNoConnection.visibility = View.GONE

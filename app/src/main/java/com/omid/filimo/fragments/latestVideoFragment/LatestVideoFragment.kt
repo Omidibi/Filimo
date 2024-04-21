@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.databinding.FragmentLatestVideoBinding
-import com.omid.filimo.utils.ProgressBarStatus
+import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
 
 class LatestVideoFragment : Fragment() {
 
@@ -34,6 +34,7 @@ class LatestVideoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkNetwork()
+        checkStatusUI()
         latestVideoObserver()
         srlStatus()
         progressBarStatus()
@@ -43,6 +44,17 @@ class LatestVideoFragment : Fragment() {
     private fun setupBinding(){
         binding = FragmentLatestVideoBinding.inflate(layoutInflater)
         latestVideoViewModel = ViewModelProvider(this)[LatestVideoViewModel::class.java]
+    }
+
+    private fun checkStatusUI(){
+        binding.apply {
+            if (MainWidget.bnv.visibility == View.VISIBLE){
+                MainWidget.bnv.visibility = View.GONE
+            }
+            if (MainWidget.toolbar.visibility == View.VISIBLE){
+                MainWidget.toolbar.visibility = View.GONE
+            }
+        }
     }
 
     private fun progressBarStatus() {
@@ -75,7 +87,7 @@ class LatestVideoFragment : Fragment() {
                             pbLatestVideo.visibility = View.GONE
                             srl.visibility = View.VISIBLE
                             liveNoConnection.visibility = View.GONE
-                            rvLatestVideo.adapter = latestVideoModel?.latestVideo?.let { LatestVideoListAdapter(it) }
+                            rvLatestVideo.adapter = latestVideoModel?.latestVideo?.let { LatestVideoListAdapter(it,this@LatestVideoFragment) }
                             rvLatestVideo.layoutManager = GridLayoutManager(requireContext(),3)
                         }
                     }else {

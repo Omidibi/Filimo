@@ -20,94 +20,27 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_show_case"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_45dp"
-                android:visibility="gone"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/search"
+                android:layout_width="@dimen/_26dp"
+                android:layout_height="@dimen/_26dp"
+                android:src="@drawable/search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/filter_show_case"
-                    android:layout_width="@dimen/_26dp"
-                    android:layout_height="@dimen/_26dp"
-                    android:src="@drawable/filter"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/search_show_case"
-                    android:layout_width="@dimen/_26dp"
-                    android:layout_height="@dimen/_26dp"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:src="@drawable/search"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/filter_show_case"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/hot_show_case"
-                    android:layout_width="@dimen/_26dp"
-                    android:layout_height="@dimen/_26dp"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:src="@drawable/fire"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/search_show_case"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/profile_show_case"
-                    android:layout_width="@dimen/_26dp"
-                    android:layout_height="@dimen/_26dp"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:background="@drawable/bg_person"
-                    android:src="@drawable/person"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/hot_show_case"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/sunGlow" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_category_myFilms"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_45dp"
-                android:visibility="gone"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/profile"
+                android:layout_width="@dimen/_26dp"
+                android:layout_height="@dimen/_26dp"
+                android:layout_marginStart="@dimen/margin_20"
+                android:background="@drawable/bg_person"
+                android:src="@drawable/person"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/search_category"
-                    android:layout_width="@dimen/_26dp"
-                    android:layout_height="@dimen/_26dp"
-                    android:src="@drawable/search"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/profile_category"
-                    android:layout_width="@dimen/_26dp"
-                    android:layout_height="@dimen/_26dp"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:background="@drawable/bg_person"
-                    android:src="@drawable/person"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/search_category"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/sunGlow" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintStart_toEndOf="@id/search"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/sunGlow" />
 
             <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                 android:id="@+id/appCompatTextView"
@@ -144,6 +77,8 @@
         android:background="@color/nero_5"
         app:itemActiveIndicatorStyle="@null"
         app:itemPaddingBottom="6dp"
+        app:itemTextAppearanceActive="@style/bottomNavigationView"
+        app:itemTextAppearanceInactive="@style/bottomNavigationView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -12,4 +12,9 @@
     <string name="see_all">مشاهده همه</string>
     <string name="search">جستجو</string>
     <string name="no_internet_connection">بدون اتصال اینترنت</string>
+    <string name="related">پیشنهادهای مشابه</string>
+    <string name="comment">نظرات</string>
+    <string name="login_or_register">ورود یا ثبت نام</string>
+    <string name="play">پخش</string>
+    <string name="about_video">درمورد فیلم</string>
 </resources>

@@ -9,8 +9,14 @@
     
     <style name="tabText" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:fontFamily">@font/iran_sans_mobile</item>
-        <item name="android:textSize">@dimen/_15sp</item>
+        <item name="android:textSize">@dimen/_14sp</item>
     </style>
+
+    <style name="bottomNavigationView" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/iran_sans_mobile</item>
+    </style>
+
+
 
     <!--<style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">#D19509</item>

@@ -15,8 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.databinding.FragmentVideoListByCatIdBinding
 import com.omid.filimo.model.Category
-import com.omid.filimo.model.Video
-import com.omid.filimo.utils.ProgressBarStatus
+import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
 
 class VideoListByCatIdFragment : Fragment() {
 
@@ -39,6 +38,7 @@ class VideoListByCatIdFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkNetwork()
+        checkStatusUI()
         videoByCatIdObserver()
         srlStatus()
         progressBarStatus()
@@ -48,6 +48,17 @@ class VideoListByCatIdFragment : Fragment() {
     private fun setupBinding(){
         binding = FragmentVideoListByCatIdBinding.inflate(layoutInflater)
         videoListByCatIdViewModel = ViewModelProvider(this)[VideoListByCatIdViewModel::class.java]
+    }
+
+    private fun checkStatusUI(){
+        binding.apply {
+            if (MainWidget.bnv.visibility == View.VISIBLE){
+                MainWidget.bnv.visibility = View.GONE
+            }
+            if (MainWidget.toolbar.visibility == View.VISIBLE){
+                MainWidget.toolbar.visibility = View.GONE
+            }
+        }
     }
 
     private fun getData(){
@@ -91,7 +102,7 @@ class VideoListByCatIdFragment : Fragment() {
                             pbCatById.visibility = View.GONE
                             srl.visibility = View.VISIBLE
                             liveNoConnection.visibility = View.GONE
-                            rvCatById.adapter = catListByIdModel?.categoryList?.let { VideoListByCatIdAdapter(it) }
+                            rvCatById.adapter = catListByIdModel?.categoryList?.let { VideoListByCatIdAdapter(it,this@VideoListByCatIdFragment) }
                             rvCatById.layoutManager = GridLayoutManager(requireContext(),3)
                         }
                     }else {

@@ -2,24 +2,18 @@ package com.omid.filimo.fragments.allVideoFragment
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.databinding.FragmentAllVideoBinding
-import com.omid.filimo.ui.dashboard.showCase.AllVideoAdapter
-import com.omid.filimo.ui.dashboard.showCase.BannerAdapter
-import com.omid.filimo.ui.dashboard.showCase.CategoriesDashboardAdapter
-import com.omid.filimo.ui.dashboard.showCase.FeaturedVideoAdapter
-import com.omid.filimo.ui.dashboard.showCase.LatestVideoAdapter
-import com.omid.filimo.utils.ProgressBarStatus
+import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
 
 class AllVideoFragment : Fragment() {
 
@@ -40,6 +34,7 @@ class AllVideoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkNetwork()
+        checkStatusUI()
         allVideoObserver()
         srlStatus()
         progressBarStatus()
@@ -49,6 +44,17 @@ class AllVideoFragment : Fragment() {
     private fun setupBinding(){
         binding = FragmentAllVideoBinding.inflate(layoutInflater)
         allVideoViewModel = ViewModelProvider(this)[AllVideoViewModel::class.java]
+    }
+
+    private fun checkStatusUI(){
+        binding.apply {
+            if (MainWidget.bnv.visibility == View.VISIBLE){
+                MainWidget.bnv.visibility = View.GONE
+            }
+            if (MainWidget.toolbar.visibility == View.VISIBLE){
+                MainWidget.toolbar.visibility = View.GONE
+            }
+        }
     }
 
     private fun progressBarStatus() {
@@ -81,7 +87,7 @@ class AllVideoFragment : Fragment() {
                             pbAllVideo.visibility = View.GONE
                             srl.visibility = View.VISIBLE
                             liveNoConnection.visibility = View.GONE
-                            rvAllVideo.adapter = allVideoModel?.allVideo?.let { AllVideoListAdapter(it) }
+                            rvAllVideo.adapter = allVideoModel?.allVideo?.let { AllVideoListAdapter(it,this@AllVideoFragment) }
                             rvAllVideo.layoutManager = GridLayoutManager(requireContext(),3)
                         }
                     }else {

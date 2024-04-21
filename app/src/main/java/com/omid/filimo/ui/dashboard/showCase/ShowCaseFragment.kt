@@ -1,6 +1,5 @@
 package com.omid.filimo.ui.dashboard.showCase
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +15,7 @@ import com.omid.filimo.R
 import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.databinding.FragmentShowcaseBinding
 import com.omid.filimo.ui.customView.customUI.CustomUI
-import com.omid.filimo.utils.ProgressBarStatus
+import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
 import java.util.Timer
 import java.util.TimerTask
 
@@ -25,13 +23,7 @@ class ShowCaseFragment : Fragment() {
 
     private lateinit var binding: FragmentShowcaseBinding
     private lateinit var showCaseViewModel: ShowCaseViewModel
-    private lateinit var owner: LifecycleOwner
     private var currentPage = 0
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        owner = this
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setupBinding()
@@ -41,16 +33,16 @@ class ShowCaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkNetwork()
+        homeObserver()
         progressBarStatus()
         setupPagerBanner()
-        homeObserver()
         srlStatus()
         clickEvents()
     }
 
     private fun setupBinding(){
         binding = FragmentShowcaseBinding.inflate(layoutInflater)
-        showCaseViewModel = ViewModelProvider(this)[ShowCaseViewModel::class.java]
+        showCaseViewModel = ViewModelProvider(requireActivity())[ShowCaseViewModel::class.java]
     }
 
     private fun progressBarStatus() {
@@ -103,28 +95,28 @@ class ShowCaseFragment : Fragment() {
     private fun homeObserver(){
         binding.apply {
             if (isAdded){
-                showCaseViewModel.checkNetworkConnection.observe(owner){ isConnect->
+                showCaseViewModel.checkNetworkConnection.observe(viewLifecycleOwner){ isConnect->
                     pbShowCase.visibility = View.VISIBLE
                     srl.visibility = View.GONE
                     liveNoConnection.visibility = View.GONE
                     if (isConnect){
-                        showCaseViewModel.banner.observe(owner){ bannerModel->
+                        showCaseViewModel.banner.observe(viewLifecycleOwner){ bannerModel->
                             pbShowCase.visibility = View.GONE
                             srl.visibility = View.VISIBLE
                             liveNoConnection.visibility = View.GONE
                             pagerBanner.adapter = bannerModel?.banner?.let { BannerAdapter(it) }
                         }
-                        showCaseViewModel.homeVideos.observe(owner){ homeVideo->
+                        showCaseViewModel.homeVideos.observe(viewLifecycleOwner){ homeVideo->
                             pbShowCase.visibility = View.GONE
                             srl.visibility = View.VISIBLE
                             liveNoConnection.visibility = View.GONE
-                            rvFeaturedVideo.adapter = homeVideo?.allInOneVideo?.featuredVideo?.let { FeaturedVideoAdapter(it) }
+                            rvFeaturedVideo.adapter = homeVideo?.allInOneVideo?.featuredVideo?.let { FeaturedVideoAdapter(it,this@ShowCaseFragment) }
                             rvFeaturedVideo.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
-                            rvLatestVideo.adapter = homeVideo?.allInOneVideo?.latestVideo?.let { LatestVideoAdapter(it) }
+                            rvLatestVideo.adapter = homeVideo?.allInOneVideo?.latestVideo?.let { LatestVideoAdapter(it,this@ShowCaseFragment) }
                             rvLatestVideo.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
-                            rvAllVideo.adapter = homeVideo?.allInOneVideo?.video?.let { AllVideoAdapter(it) }
+                            rvAllVideo.adapter = homeVideo?.allInOneVideo?.video?.let { AllVideoAdapter(it,this@ShowCaseFragment) }
                             rvAllVideo.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
-                            rvCategories.adapter = CategoriesDashboardAdapter(homeVideo.allInOneVideo.category)
+                            rvCategories.adapter = homeVideo?.allInOneVideo?.category?.let { CategoriesDashboardAdapter(it,this@ShowCaseFragment) }
                             rvCategories.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
                         }
                     }else {
@@ -167,8 +159,6 @@ class ShowCaseFragment : Fragment() {
 
             moreCategories.setOnClickListener {
                 findNavController().navigate(R.id.action_showCaseFragment_to_categoryFragment)
-                MainWidget.clShowCase.visibility = View.GONE
-                MainWidget.clCategoryMyFilms.visibility = View.VISIBLE
                 MainWidget.bnv.menu.findItem(R.id.item_category).isChecked = true
                 CustomUI.changeStatusOnClickEvent(MainWidget.bnv)
             }

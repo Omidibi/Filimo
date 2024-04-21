@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.databinding.FragmentSearchBinding
-import com.omid.filimo.utils.ProgressBarStatus
+import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
 
 class SearchFragment : Fragment() {
 
@@ -34,6 +34,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkNetwork()
+        checkStatusUI()
         searchObserver()
         searchViewStatus()
         clickEvents()
@@ -42,6 +43,17 @@ class SearchFragment : Fragment() {
 
     private fun progressBarStatus() {
         ProgressBarStatus.pbStatus(binding.pbSearch)
+    }
+
+    private fun checkStatusUI(){
+        binding.apply {
+            if (MainWidget.bnv.visibility == View.VISIBLE){
+                MainWidget.bnv.visibility = View.GONE
+            }
+            if (MainWidget.toolbar.visibility == View.VISIBLE){
+                MainWidget.toolbar.visibility = View.GONE
+            }
+        }
     }
 
     private fun checkNetwork(){
@@ -89,7 +101,7 @@ class SearchFragment : Fragment() {
                                 mcv.visibility = View.VISIBLE
                                 pbSearch.visibility = View.GONE
                                 liveNoConnection.visibility = View.GONE
-                                rvSearch.adapter = searchModel?.search?.let { SearchAdapter(it) }
+                                rvSearch.adapter = searchModel?.search?.let { SearchAdapter(it,this@SearchFragment) }
                                 rvSearch.layoutManager = GridLayoutManager(requireContext(),3)
                             }
                         }

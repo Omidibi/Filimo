@@ -1,4 +1,4 @@
-package com.omid.filimo.utils
+package com.omid.filimo.utils.progressBarStatus
 
 import android.widget.ProgressBar
 import androidx.core.content.ContextCompat

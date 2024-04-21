@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
             setContentView(root)
             MainWidget.bnv = bnv
             MainWidget.toolbar = toolbar
-            MainWidget.clShowCase = clShowCase
-            MainWidget.clCategoryMyFilms = clCategoryMyFilms
             navHost = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
             navController = navHost.navController
             NavigationUI.setupWithNavController(bnv, navController)
@@ -44,8 +42,6 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             navController.navigate(R.id.showCaseFragment)
             bnv.menu.findItem(R.id.item_showcase).isChecked = true
-            clShowCase.visibility = View.VISIBLE
-            clCategoryMyFilms.visibility = View.GONE
         }
     }
 
@@ -56,20 +52,14 @@ class MainActivity : AppCompatActivity() {
 
                     R.id.item_myFilms -> {
                         navController.navigate(R.id.myFilmsFragment)
-                        clShowCase.visibility = View.GONE
-                        clCategoryMyFilms.visibility = View.VISIBLE
                     }
 
                     R.id.item_category -> {
                         navController.navigate(R.id.categoryFragment)
-                        clShowCase.visibility = View.GONE
-                        clCategoryMyFilms.visibility = View.VISIBLE
                     }
 
                     R.id.item_showcase -> {
                         navController.navigate(R.id.showCaseFragment)
-                        clShowCase.visibility = View.VISIBLE
-                        clCategoryMyFilms.visibility = View.GONE
                     }
 
                 }
@@ -81,13 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun clickEvent(){
         binding.apply {
-            searchShowCase.setOnClickListener {
-                navController.navigate(R.id.searchFragment)
-                MainWidget.bnv.visibility = View.GONE
-                MainWidget.toolbar.visibility = View.GONE
-            }
-
-            searchCategory.setOnClickListener {
+            search.setOnClickListener {
                 navController.navigate(R.id.searchFragment)
                 MainWidget.bnv.visibility = View.GONE
                 MainWidget.toolbar.visibility = View.GONE
