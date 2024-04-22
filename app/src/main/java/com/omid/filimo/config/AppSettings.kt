@@ -17,4 +17,13 @@ class AppSettings {
     fun getLogin(): Int {
         return sharedPreferences.getInt("isLogin", 0)
     }
+
+    fun saveRegister(state: Int) {
+        editor.putInt("isRegister", state)
+        editor.commit()
+    }
+
+    fun getRegister(): Int {
+        return sharedPreferences.getInt("isRegister", 0)
+    }
 }

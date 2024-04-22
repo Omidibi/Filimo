@@ -9,10 +9,12 @@ import com.omid.filimo.model.AllVideoModel
 import com.omid.filimo.model.BannerModel
 import com.omid.filimo.model.CatListByIdModel
 import com.omid.filimo.model.CategoryModel
+import com.omid.filimo.model.CommentModel
 import com.omid.filimo.model.ForgetPasswordModel
 import com.omid.filimo.model.HomeVideos
 import com.omid.filimo.model.LatestVideoModel
 import com.omid.filimo.model.ProfileUpdateModel
+import com.omid.filimo.model.RatingModel
 import com.omid.filimo.model.SearchModel
 import com.omid.filimo.model.SingleVideoModel
 import com.omid.filimo.model.UserLoginModel
@@ -35,6 +37,8 @@ class WebServiceCaller {
     val userLoginModel = MutableLiveData<UserLoginModel>()
     val profileUpdateModel = MutableLiveData<ProfileUpdateModel>()
     val forgetPasswordModel = MutableLiveData<ForgetPasswordModel>()
+    val ratingModel = MutableLiveData<RatingModel>()
+    val commentModel = MutableLiveData<CommentModel>()
 
     suspend fun getBanner(): BannerModel? {
         return try {
@@ -347,6 +351,58 @@ class WebServiceCaller {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ forgetPasswordModel ->
                         this@WebServiceCaller.forgetPasswordModel.postValue(forgetPasswordModel)
+                    }, { error ->
+                        Log.e("", error.message.toString())
+                    })
+                this.add(disposable)
+            }
+        } catch (e: Exception) {
+            when (e) {
+                is SocketTimeoutException, is SocketException -> {
+                    Handler(Looper.getMainLooper()).post {
+                        Toast.makeText(AppConfiguration.getContext(), e.message, Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                else -> throw e
+            }
+        }
+    }
+
+    fun getRating(userId: String,rate: String){
+        try {
+            CompositeDisposable().apply {
+                val disposable = InitIService.iService.rating(userId = userId, rate = rate)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ ratingModel ->
+                        this@WebServiceCaller.ratingModel.postValue(ratingModel)
+                    }, { error ->
+                        Log.e("", error.message.toString())
+                    })
+                this.add(disposable)
+            }
+        } catch (e: Exception) {
+            when (e) {
+                is SocketTimeoutException, is SocketException -> {
+                    Handler(Looper.getMainLooper()).post {
+                        Toast.makeText(AppConfiguration.getContext(), e.message, Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                else -> throw e
+            }
+        }
+    }
+
+    fun getComment(commentText: String,userName: String){
+        try {
+            CompositeDisposable().apply {
+                val disposable = InitIService.iService.comment(commentText, userName)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ commentModel ->
+                        this@WebServiceCaller.commentModel.postValue(commentModel)
                     }, { error ->
                         Log.e("", error.message.toString())
                     })

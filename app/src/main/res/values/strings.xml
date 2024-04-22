@@ -17,4 +17,13 @@
     <string name="login_or_register">ورود یا ثبت نام</string>
     <string name="play">پخش</string>
     <string name="about_video">درمورد فیلم</string>
+    <string name="no_comment">نظری وجود ندارد</string>
+    <string name="userName">نام کاربر: </string>
+    <string name="type_comment">نظرتون رو بنویسید</string>
+    <string name="name">نام</string>
+    <string name="email">ایمیل</string>
+    <string name="password">پسوورد</string>
+    <string name="phone">شماره تلفن</string>
+    <string name="register">ثبت نام</string>
+    <string name="login">ورود</string>
 </resources>

@@ -4,10 +4,12 @@ import com.omid.filimo.model.AllVideoModel
 import com.omid.filimo.model.BannerModel
 import com.omid.filimo.model.CatListByIdModel
 import com.omid.filimo.model.CategoryModel
+import com.omid.filimo.model.CommentModel
 import com.omid.filimo.model.ForgetPasswordModel
 import com.omid.filimo.model.HomeVideos
 import com.omid.filimo.model.LatestVideoModel
 import com.omid.filimo.model.ProfileUpdateModel
+import com.omid.filimo.model.RatingModel
 import com.omid.filimo.model.SearchModel
 import com.omid.filimo.model.SingleVideoModel
 import com.omid.filimo.model.UserLoginModel
@@ -77,4 +79,19 @@ interface IService {
 
     @GET("api.php?forgot_pass")
     fun forgetPassword(@Query("email") email: String): Observable<ForgetPasswordModel>
+
+    @GET("api.php?video_rate")
+    fun rating(
+        @Query("device_id") deviceId: String = "123",
+        @Query("post_id") postId: String = "8",
+        @Query("user_id") userId: String,
+        @Query("rate") rate: String
+    ): Observable<RatingModel>
+
+    @GET("api.php?video_comment")
+    fun comment(
+        @Query("comment_text") commentText: String,
+        @Query("user_name") userName: String,
+        @Query("post_id") postId: String = "19"
+    ): Observable<CommentModel>
 }

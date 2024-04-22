@@ -52,11 +52,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_16dp"
-                    android:padding="@dimen/_10dp"
                     android:background="@drawable/bac_btn_play_or_register"
+                    android:padding="@dimen/_10dp"
                     android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -87,9 +87,9 @@
                 android:id="@+id/cv_pic"
                 android:layout_width="@dimen/_150dp"
                 android:layout_height="@dimen/_200dp"
+                android:layout_marginTop="@dimen/_30dp"
                 android:layout_marginEnd="@dimen/_8dp"
                 app:cardCornerRadius="@dimen/_8dp"
-                android:layout_marginTop="@dimen/_30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_back"
                 app:layout_constraintVertical_bias="0.100000000">
@@ -148,12 +148,12 @@
             <View
                 android:id="@+id/view_1"
                 android:layout_width="@dimen/_0dp"
-                android:layout_height="@dimen/_1dp"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginTop="@dimen/_20dp"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/text_about"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/_20dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_about" />
 
             <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                 android:id="@+id/related"
@@ -172,7 +172,6 @@
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="@dimen/_250dp"
                 android:layout_marginTop="@dimen/_8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/related" />
@@ -180,12 +179,12 @@
             <View
                 android:id="@+id/view_2"
                 android:layout_width="@dimen/_0dp"
-                android:layout_height="@dimen/_1dp"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginTop="@dimen/_20dp"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/rv_single_video"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/_20dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_single_video" />
 
             <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                 android:id="@+id/comment"
@@ -198,6 +197,76 @@
                 android:textSize="@dimen/_16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_comment_list"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="@dimen/_250dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comment" />
+
+            <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+                android:id="@+id/txt_no_comment"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="@dimen/_65dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:gravity="center"
+                android:text="@string/no_comment"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comment" />
+
+            <View
+                android:id="@+id/view_3"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_comment_list" />
+
+           <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/type_comment"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="@dimen/_65dp"
+                android:hint="@string/type_comment"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_8dp"
+                android:textColorHint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/send_it"
+                app:layout_constraintEnd_toStartOf="@+id/img_user"
+                app:layout_constraintTop_toBottomOf="@id/view_3" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_user"
+                android:layout_width="@dimen/_65dp"
+                android:layout_height="@dimen/_65dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:padding="@dimen/_20dp"
+                android:src="@drawable/person"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_3" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/send_it"
+                android:layout_width="@dimen/_65dp"
+                android:layout_height="@dimen/_65dp"
+                android:padding="@dimen/_15dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:src="@drawable/arrow_back"
+                android:tint="@color/sunGlow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

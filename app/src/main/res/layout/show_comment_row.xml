@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_150dp"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/bac_show_comment"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/_8dp"
+        app:cardCornerRadius="@dimen/_12dp">
+
+        <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20dp"
+            android:textColor="@color/white"
+            android:text="@string/userName"
+            android:textSize="@dimen/_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sp"
+            app:layout_constraintEnd_toStartOf="@id/name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+            android:id="@+id/show_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_0dp"
+            android:layout_margin="@dimen/_20dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
