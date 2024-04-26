@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.databinding.FragmentCategoryBinding
 import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
 
@@ -22,6 +23,7 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkUiStatus()
         checkNetwork()
         categoryObserver()
         progressBarStatus()
@@ -43,6 +45,15 @@ class CategoryFragment : Fragment() {
                 pbCategory.visibility = View.GONE
                 liveNoConnection.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private fun checkUiStatus(){
+        if (MainWidget.bnv.visibility == View.GONE){
+            MainWidget.bnv.visibility = View.VISIBLE
+        }
+        if (MainWidget.toolbar.visibility == View.GONE){
+            MainWidget.toolbar.visibility = View.VISIBLE
         }
     }
 

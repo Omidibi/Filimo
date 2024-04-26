@@ -6,8 +6,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserLogin(
-    @SerializedName("msg")
-    val msg: String,
+    @SerializedName("email")
+    val email: String,
+    @SerializedName("name")
+    val name: String,
     @SerializedName("success")
-    val success: String
+    val success: String,
+    @SerializedName("user_id")
+    val userId: String
 ) : Parcelable

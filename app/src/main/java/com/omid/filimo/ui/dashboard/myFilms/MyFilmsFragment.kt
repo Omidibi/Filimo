@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.databinding.FragmentMyfilmsBinding
 
 class MyFilmsFragment : Fragment() {
@@ -21,11 +22,21 @@ class MyFilmsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkUiStatus()
         setupTabLayout()
     }
 
     private fun setupBinding() {
         binding = FragmentMyfilmsBinding.inflate(layoutInflater)
+    }
+
+    private fun checkUiStatus(){
+        if (MainWidget.bnv.visibility == View.GONE){
+            MainWidget.bnv.visibility = View.VISIBLE
+        }
+        if (MainWidget.toolbar.visibility == View.GONE){
+            MainWidget.toolbar.visibility = View.VISIBLE
+        }
     }
 
     private fun setupTabLayout() {

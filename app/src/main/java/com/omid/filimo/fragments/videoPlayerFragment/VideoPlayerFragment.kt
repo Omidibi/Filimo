@@ -66,7 +66,7 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
     private fun check(){
         binding.apply {
-            if (appSettings.getLogin() == 0){
+            if (appSettings.getLock() == 0){
                 btnPlayOrRegister.text = getString(R.string.login_or_register)
             }else {
                 btnPlayOrRegister.text = getString(R.string.play)
@@ -81,16 +81,25 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
     private fun getData(){
         binding.apply {
-            video = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                requireArguments().getParcelable("video",Video::class.java)!!
+            video = if (appSettings.getStatusFragment() == 1){
+                Video(appSettings.getRelated().catId,"","",
+                    appSettings.getRelated().categoryName,"",appSettings.getRelated().id,appSettings.getRelated().rateAvg,
+                    appSettings.getRelated().totalViewer,appSettings.getRelated().videoDescription,appSettings.getRelated().videoDuration,
+                    appSettings.getRelated().videoId,appSettings.getRelated().videoThumbnailB,appSettings.getRelated().videoThumbnailS,
+                    appSettings.getRelated().videoTitle,appSettings.getRelated().videoType,appSettings.getRelated().videoUrl)
             }else {
-                requireArguments().getParcelable("video")!!
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+                    requireArguments().getParcelable("video",Video::class.java)!!
+                }else {
+                    requireArguments().getParcelable("video")!!
+                }
+
             }
-            Log.e("","")
             Glide.with(requireContext()).load(video.videoThumbnailB).into(imgBanner)
             Glide.with(requireContext()).load(video.videoThumbnailB).into(imgVideo)
             videoName.text = video.videoTitle
-            rateVideo.rating = video.rateAvg.toFloat()
+            txtTotalViewer.text = video.totalViewer
+            Log.e("","")
         }
     }
 
@@ -127,10 +136,15 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
                             for (singleVideo in singleVideoModel.singleVideo){
                                 for (comments in singleVideo.userComments){
                                     userComment.add(comments)
+
                                 }
                                 for(related in singleVideo.related){
-                                    relatedList.add(related)
+                                   relatedList.add(related)
                                 }
+                                rvSingleVideo.adapter = singleVideoModel?.singleVideo?.let { SingleVideoAdapter(singleVideo.related,this@VideoPlayerFragment) }
+                                rvSingleVideo.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
+                                rvCommentList.adapter = singleVideoModel?.singleVideo?.let { ShowCommentAdapter(singleVideo.userComments) }
+                                rvCommentList.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
                             }
                             if (userComment.isEmpty()){
                                 rvCommentList.visibility = View.GONE
@@ -139,10 +153,7 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
                                 rvCommentList.visibility = View.VISIBLE
                                 txtNoComment.visibility = View.GONE
                             }
-                            rvSingleVideo.adapter = singleVideoModel?.singleVideo?.let { SingleVideoAdapter(relatedList,this@VideoPlayerFragment) }
-                            rvSingleVideo.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
-                            rvCommentList.adapter = singleVideoModel?.singleVideo?.let { ShowCommentAdapter(userComment) }
-                            rvCommentList.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+
                         }
                     }else {
                         nsv.visibility = View.GONE
@@ -169,42 +180,58 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
             imgBack.setOnClickListener {
                 findNavController().popBackStack()
+                appSettings.saveStatusFragment(0)
                 MainWidget.bnv.visibility = View.VISIBLE
                 MainWidget.toolbar.visibility = View.VISIBLE
             }
 
             requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
                 findNavController().popBackStack()
+                appSettings.saveStatusFragment(0)
                 MainWidget.bnv.visibility = View.VISIBLE
                 MainWidget.toolbar.visibility = View.VISIBLE
             }
 
-            sendIt.setOnClickListener {
-                if (appSettings.getLogin() == 0){
+            sendComment.setOnClickListener {
+                if (appSettings.getLock() == 0){
                     val dialog = AlertDialog.Builder(requireContext())
                     dialog.setTitle("ثبت نام یا ورود")
                     dialog.setMessage("برای ارسال نظر ابتدا وارد شوید یا ثبت نام کنید")
-                    dialog.setPositiveButton("بله") { p0, p1 ->
+                    dialog.setPositiveButton("بله") { _, _ ->
                         findNavController().navigate(R.id.action_videoPlayerFragment_to_loginFragment)
                         MainWidget.bnv.visibility = View.GONE
                         MainWidget.toolbar.visibility = View.GONE
                     }
-                    dialog.setNegativeButton("خیر") { p0, p1 ->
+                    dialog.setNegativeButton("خیر") { _, _ ->
 
                     }
                     dialog.show()
                 }else {
-                    videoPlayerViewModel.getComment(typeComment.text.toString(),"").observe(owner){ commentModel->
-                        for(i in commentModel.comment){
-                            Toast.makeText(requireContext(),i.success,Toast.LENGTH_LONG).show()
+                    if (typeComment.text?.isEmpty() == true){
+                        Toast.makeText(requireContext(),"نظری بنویسید سپس ارسال کنید",Toast.LENGTH_LONG).show()
+                    }else {
+                        videoPlayerViewModel.getComment(typeComment.text.toString(),appSettings.getName().toString(),video.id).observe(owner){
+                            typeComment.setText("")
+                            Toast.makeText(requireContext(),"نظر شما ارسال شد",Toast.LENGTH_LONG).show()
                         }
                     }
                 }
             }
 
             btnPlayOrRegister.setOnClickListener{
-                if (appSettings.getLogin() == 0){
-                    Toast.makeText(requireContext(),"ابتدا ثبت نام کنید یا به اکانت خود وارد شوید",Toast.LENGTH_LONG).show()
+                if (appSettings.getLock() == 0){
+                    val dialog = AlertDialog.Builder(requireContext())
+                    dialog.setTitle("ثبت نام یا ورود")
+                    dialog.setMessage("برای دیدن فیلم ابتدا وارد شوید یا ثبت نام کنید")
+                    dialog.setPositiveButton("بله") { _, _ ->
+                        findNavController().navigate(R.id.action_videoPlayerFragment_to_loginFragment)
+                        MainWidget.bnv.visibility = View.GONE
+                        MainWidget.toolbar.visibility = View.GONE
+                    }
+                    dialog.setNegativeButton("خیر") { _, _ ->
+
+                    }
+                    dialog.show()
                 }else {
                     Toast.makeText(requireContext(),"ویدیو پخش شود",Toast.LENGTH_LONG).show()
                 }
@@ -214,13 +241,15 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
     private fun newStateFragment(video: Video){
         binding.apply {
+            appSettings.saveStatusFragment(1)
+            appSettings.saveRelate(Related(video.catId,video.categoryName,video.id,video.rateAvg,video.totalViewer,video.videoDescription,video.videoDuration,video.videoId,video.videoThumbnailB,video.videoThumbnailS,video.videoTitle,video.videoType,video.videoUrl))
+            pb.visibility = View.VISIBLE
+            nsv.visibility = View.GONE
+            liveNoConnection.visibility = View.GONE
             videoPlayerViewModel.getSingleVideo(video.id).observe(owner){ singleVideoModel->
-                nsv.visibility = View.VISIBLE
-                pb.visibility = View.GONE
-                liveNoConnection.visibility = View.GONE
-                nsv.scrollTo(0,0)
                 relatedList.clear()
                 userComment.clear()
+                nsv.scrollTo(0,0)
                 for (singleVideo in singleVideoModel.singleVideo){
                     for (comments in singleVideo.userComments){
                         userComment.add(comments)
@@ -244,11 +273,36 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
             Glide.with(requireContext()).load(video.videoThumbnailB).into(imgBanner)
             Glide.with(requireContext()).load(video.videoThumbnailB).into(imgVideo)
             videoName.text = video.videoTitle
-            rateVideo.rating = video.rateAvg.toFloat()
+            txtTotalViewer.text = video.totalViewer
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
                 textAbout.text = Html.fromHtml(video.videoDescription,Html.FROM_HTML_MODE_COMPACT)
             }else {
                 textAbout.text = Html.fromHtml(video.videoDescription)
+            }
+            sendComment.setOnClickListener {
+                if (appSettings.getLock() == 0){
+                    val dialog = AlertDialog.Builder(requireContext())
+                    dialog.setTitle("ثبت نام یا ورود")
+                    dialog.setMessage("برای ارسال نظر ابتدا وارد شوید یا ثبت نام کنید")
+                    dialog.setPositiveButton("بله") { _, _ ->
+                        findNavController().navigate(R.id.action_videoPlayerFragment_to_loginFragment)
+                        MainWidget.bnv.visibility = View.GONE
+                        MainWidget.toolbar.visibility = View.GONE
+                    }
+                    dialog.setNegativeButton("خیر") { _, _ ->
+
+                    }
+                    dialog.show()
+                }else {
+                    if (typeComment.text?.isEmpty() == true){
+                        Toast.makeText(requireContext(),"نظری بنویسید سپس ارسال کنید",Toast.LENGTH_LONG).show()
+                    }else {
+                        videoPlayerViewModel.getComment(typeComment.text.toString(),appSettings.getName().toString(),video.id).observe(owner){
+                            typeComment.setText("")
+                            Toast.makeText(requireContext(),"نظر شما ارسال شد",Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
             }
         }
     }

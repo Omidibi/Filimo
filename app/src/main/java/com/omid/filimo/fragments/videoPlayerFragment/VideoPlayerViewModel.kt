@@ -22,8 +22,8 @@ class VideoPlayerViewModel(application: Application) : AndroidViewModel(applicat
         return singleVideoModel
     }
 
-    fun getComment(commentText: String,userName: String): LiveData<CommentModel>{
-        webServiceCaller.getComment(commentText, userName)
+    fun getComment(commentText: String,userName: String,postId: String): LiveData<CommentModel>{
+        webServiceCaller.getComment(commentText, userName, postId)
         return commentModel
     }
 

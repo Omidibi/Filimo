@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/nero_7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/nero_7"
-    tools:context=".fragments.loginFragment.LoginFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.userProfileFragment.UserProfileFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,7 +25,7 @@
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/login"
+                android:text="@string/profile"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -37,8 +37,8 @@
                 android:id="@+id/img_close_page"
                 android:layout_width="@dimen/_40dp"
                 android:layout_height="@dimen/_40dp"
-                android:padding="@dimen/_10dp"
-                android:src="@drawable/close"
+                android:padding="@dimen/_4dp"
+                android:src="@drawable/arrow_forward"
                 android:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -49,22 +49,20 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_profile"
         android:layout_width="@dimen/_0dp"
-        android:id="@+id/cl_login"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_height="@dimen/_0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_height="@dimen/_0dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/password"
+            android:id="@+id/name"
             android:layout_width="@dimen/_0dp"
             android:layout_height="@dimen/_45dp"
-            android:layout_marginStart="@dimen/_20dp"
-            android:layout_marginTop="@dimen/_150dp"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:hint="@string/password"
+            android:layout_margin="@dimen/_20dp"
+            android:hint="@string/name"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,47 +79,59 @@
             android:textColorHint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password" />
+            app:layout_constraintTop_toBottomOf="@id/name" />
 
-        <com.omid.filimo.ui.customView.customFonts.IranSansButton
-            android:id="@+id/btn_login"
-            android:layout_width="@dimen/_150dp"
-            android:layout_height="@dimen/_65dp"
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/password"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="@dimen/_45dp"
             android:layout_margin="@dimen/_20dp"
-            android:background="@drawable/bac_btn_register"
-            android:text="@string/login"
+            android:hint="@string/password"
             android:textColor="@color/white"
-            android:textSize="@dimen/_18sp"
-            android:textStyle="bold"
+            android:textColorHint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/email" />
 
-        <com.omid.filimo.ui.customView.customFonts.IranSansTextView
-            android:id="@+id/txt_go_to_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/btn_login"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/_16dp"
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/phone"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="@dimen/_45dp"
+            android:layout_margin="@dimen/_20dp"
+            android:hint="@string/phone"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sp"
-            android:textStyle="bold"
-            android:text="@string/register" />
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password" />
 
-        <com.omid.filimo.ui.customView.customFonts.IranSansTextView
-            android:id="@+id/txt_forget_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="@dimen/_16dp"
+        <com.omid.filimo.ui.customView.customFonts.IranSansButton
+            android:id="@+id/btn_edite"
+            android:layout_width="@dimen/_180dp"
+            android:layout_height="@dimen/_65dp"
+            android:layout_margin="@dimen/_20dp"
+            android:background="@drawable/bac_btn_register"
+            android:text="@string/edite"
             android:textColor="@color/white"
             android:textSize="@dimen/_16sp"
             android:textStyle="bold"
-            android:text="@string/forget_password" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phone" />
+
+        <com.omid.filimo.ui.customView.customFonts.IranSansButton
+            android:id="@+id/btn_exit"
+            android:layout_width="@dimen/_180dp"
+            android:layout_height="@dimen/_65dp"
+            android:layout_margin="@dimen/_20dp"
+            android:background="@drawable/bac_btn_register"
+            android:text="@string/exit_profile"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_edite" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

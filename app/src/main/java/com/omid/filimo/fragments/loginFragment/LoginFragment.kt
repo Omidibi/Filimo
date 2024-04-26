@@ -38,6 +38,14 @@ class LoginFragment : Fragment() {
         clickEvents()
     }
 
+    override fun onStop() {
+        super.onStop()
+        binding.apply {
+            password.setText("")
+            email.setText("")
+        }
+    }
+
     private fun setupBinding(){
         binding = FragmentLoginBinding.inflate(layoutInflater)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
@@ -69,11 +77,18 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun registerObserver(name: String, email: String) {
-        loginViewModel.getLogin(name, email).observe(owner) { userLoginModel->
-            if (userLoginModel != null) {
-                for (status in userLoginModel.userLogin) {
-                    Toast.makeText(requireContext(), status.success, Toast.LENGTH_LONG).show()
+    private fun userLoginObserver(email: String, password: String) {
+        loginViewModel.getUserLogin(email, password).observe(owner) { userLoginModel->
+            for (i in userLoginModel.userLogin){
+                if (i.success.contains("1")){
+                    appSettings.lock(1)
+                    appSettings.name(i.name)
+                    appSettings.email(i.email)
+                    appSettings.userId(i.userId)
+                    findNavController().popBackStack()
+                    Toast.makeText(requireContext(),"شما وارد حساب خود شدید",Toast.LENGTH_LONG).show()
+                } else if (i.success.contains("0")) {
+                    Toast.makeText(requireContext(),"نام یا ایمیل شما اشتباه میباشد",Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -81,12 +96,29 @@ class LoginFragment : Fragment() {
 
     private fun clickEvents(){
         binding.apply {
+
+            btnLogin.setOnClickListener {
+                if (email.length() == 0){
+                    email.error = "این فیلد نباید خالی باشد"
+                }
+                if (password.length() == 0){
+                    password.error = "این فیلد نباید خالی باشد"
+                }
+                if (email.length() != 0 && password.length() != 0){
+                    userLoginObserver(email.text.toString(),password.text.toString())
+                }
+            }
+
             imgClosePage.setOnClickListener {
                 findNavController().popBackStack()
             }
 
             txtGoToRegister.setOnClickListener {
                 findNavController().navigate(R.id.action_loginFragment_to_userRegisterFragment)
+            }
+
+            txtForgetPassword.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
             }
         }
     }

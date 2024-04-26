@@ -14,13 +14,10 @@ import com.omid.filimo.model.ForgetPasswordModel
 import com.omid.filimo.model.HomeVideos
 import com.omid.filimo.model.LatestVideoModel
 import com.omid.filimo.model.ProfileUpdateModel
-import com.omid.filimo.model.RatingModel
 import com.omid.filimo.model.SearchModel
 import com.omid.filimo.model.SingleVideoModel
 import com.omid.filimo.model.UserLoginModel
-import com.omid.filimo.model.UserProfileModel
 import com.omid.filimo.model.UserRegisterModel
-import com.omid.filimo.model.UserStatusModel
 import com.omid.filimo.utils.configuration.AppConfiguration
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -34,10 +31,9 @@ class WebServiceCaller {
     val categoryModel = MutableLiveData<CategoryModel>()
     val catListByIdModel = MutableLiveData<CatListByIdModel>()
     val singleVideoModel = MutableLiveData<SingleVideoModel>()
-    val userLoginModel = MutableLiveData<UserLoginModel>()
+    val userLogin = MutableLiveData<UserLoginModel>()
     val profileUpdateModel = MutableLiveData<ProfileUpdateModel>()
     val forgetPasswordModel = MutableLiveData<ForgetPasswordModel>()
-    val ratingModel = MutableLiveData<RatingModel>()
     val commentModel = MutableLiveData<CommentModel>()
 
     suspend fun getBanner(): BannerModel? {
@@ -255,8 +251,8 @@ class WebServiceCaller {
                 val disposable = InitIService.iService.userLogin(email, password)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ userLoginModel ->
-                        this@WebServiceCaller.userLoginModel.postValue(userLoginModel)
+                    .subscribe({ userLogin ->
+                        this@WebServiceCaller.userLogin.postValue(userLogin)
                     }, { error ->
                         Log.e("", error.message.toString())
                     })
@@ -272,27 +268,6 @@ class WebServiceCaller {
 
                 else -> throw e
             }
-        }
-    }
-
-    suspend fun getUserProfile(id: String): UserProfileModel? {
-        return try {
-            return if (InitIService.iService.userProfile(id).isSuccessful) {
-                InitIService.iService.userProfile(id).body()
-            } else {
-                null
-            }
-        } catch (e: Exception) {
-            when (e) {
-                is SocketTimeoutException, is SocketException -> {
-                    Handler(Looper.getMainLooper()).post {
-                        Toast.makeText(AppConfiguration.getContext(), e.message, Toast.LENGTH_LONG).show()
-                    }
-                }
-
-                else -> throw e
-            }
-            null
         }
     }
 
@@ -322,27 +297,6 @@ class WebServiceCaller {
         }
     }
 
-    suspend fun getUserStatus(userId: String): UserStatusModel? {
-        return try {
-            return if (InitIService.iService.userStatus(userId).isSuccessful) {
-                InitIService.iService.userStatus(userId).body()
-            } else {
-                null
-            }
-        } catch (e: Exception) {
-            when (e) {
-                is SocketTimeoutException, is SocketException -> {
-                    Handler(Looper.getMainLooper()).post {
-                        Toast.makeText(AppConfiguration.getContext(), e.message, Toast.LENGTH_LONG).show()
-                    }
-                }
-
-                else -> throw e
-            }
-            null
-        }
-    }
-
     fun getForgetPassword(email: String) {
         try {
             CompositeDisposable().apply {
@@ -369,36 +323,10 @@ class WebServiceCaller {
         }
     }
 
-    fun getRating(userId: String,rate: String){
+    fun getComment(commentText: String,userName: String,postId: String){
         try {
             CompositeDisposable().apply {
-                val disposable = InitIService.iService.rating(userId = userId, rate = rate)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ ratingModel ->
-                        this@WebServiceCaller.ratingModel.postValue(ratingModel)
-                    }, { error ->
-                        Log.e("", error.message.toString())
-                    })
-                this.add(disposable)
-            }
-        } catch (e: Exception) {
-            when (e) {
-                is SocketTimeoutException, is SocketException -> {
-                    Handler(Looper.getMainLooper()).post {
-                        Toast.makeText(AppConfiguration.getContext(), e.message, Toast.LENGTH_LONG).show()
-                    }
-                }
-
-                else -> throw e
-            }
-        }
-    }
-
-    fun getComment(commentText: String,userName: String){
-        try {
-            CompositeDisposable().apply {
-                val disposable = InitIService.iService.comment(commentText, userName)
+                val disposable = InitIService.iService.comment(commentText, userName, postId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ commentModel ->

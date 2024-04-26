@@ -17,13 +17,21 @@
     <string name="login_or_register">ورود یا ثبت نام</string>
     <string name="play">پخش</string>
     <string name="about_video">درمورد فیلم</string>
+    <string name="imdb">IMDB</string>
+    <string name="point">5.6</string>
     <string name="no_comment">نظری وجود ندارد</string>
     <string name="userName">نام کاربر: </string>
     <string name="type_comment">نظرتون رو بنویسید</string>
     <string name="name">نام</string>
     <string name="email">ایمیل</string>
-    <string name="password">پسوورد</string>
+    <string name="password">رمز عبور</string>
     <string name="phone">شماره تلفن</string>
     <string name="register">ثبت نام</string>
     <string name="login">ورود</string>
+    <string name="profile">حساب کاربری</string>
+    <string name="edite">ویرایش حساب کاربری</string>
+    <string name="exit_profile">خروج از حساب</string>
+    <string name="rate_it">به این فیلم امتیاز دهید</string>
+    <string name="forget_password">فراموش رمز عبور</string>
+    <string name="send_request">بازیابی رمز عبور</string>
 </resources>

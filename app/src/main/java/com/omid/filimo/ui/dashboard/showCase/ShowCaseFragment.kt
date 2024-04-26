@@ -33,6 +33,7 @@ class ShowCaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkNetwork()
+        checkUiStatus()
         homeObserver()
         progressBarStatus()
         setupPagerBanner()
@@ -47,6 +48,15 @@ class ShowCaseFragment : Fragment() {
 
     private fun progressBarStatus() {
         ProgressBarStatus.pbStatus(binding.pbShowCase)
+    }
+
+    private fun checkUiStatus(){
+        if (MainWidget.bnv.visibility == View.GONE){
+            MainWidget.bnv.visibility = View.VISIBLE
+        }
+        if (MainWidget.toolbar.visibility == View.GONE){
+            MainWidget.toolbar.visibility = View.VISIBLE
+        }
     }
 
     private fun checkNetwork(){

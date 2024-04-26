@@ -70,10 +70,21 @@ class UserRegisterFragment : Fragment() {
     }
 
     private fun registerObserver(name: String, email: String, password: String, phone: String) {
-        userRegisterViewModel.getRegister(name, email, password, phone).observe(owner) { userRegisterModel ->
-            if (userRegisterModel != null) {
-                for (status in userRegisterModel.userRegister) {
-                    Toast.makeText(requireContext(), status.success, Toast.LENGTH_LONG).show()
+        userRegisterViewModel.getRegister(name, email, password, phone).observe(owner) { userRegisterModel->
+            for (i in userRegisterModel.userRegister){
+                if (i.success.contains("0")){
+                    appSettings.email(email)
+                    appSettings.password(password)
+                    appSettings.name(name)
+                    appSettings.phone(phone)
+                    appSettings.lock(1)
+                    Toast.makeText(requireContext(),"ثبت نام شما با موفقیت انجام شد",Toast.LENGTH_LONG).show()
+                    findNavController().popBackStack()
+                    findNavController().popBackStack()
+                }else if (i.success.contains("1")){
+                    Toast.makeText(requireContext(),"ثبت نام انجام نشد\nبه دلیل: ${i.msg}",Toast.LENGTH_LONG).show()
+                    findNavController().popBackStack()
+                    findNavController().popBackStack()
                 }
             }
         }
@@ -96,7 +107,6 @@ class UserRegisterFragment : Fragment() {
                 }
                 if (name.length() != 0 && email.length() != 0 && password.length() != 0 && phone.length() != 0){
                     registerObserver(name.text.toString(),email.text.toString(),password.text.toString(),phone.text.toString())
-                    Toast.makeText(requireContext(),"شما ثبت نام کردید",Toast.LENGTH_LONG).show()
                 }
             }
 

@@ -9,7 +9,7 @@ import com.omid.filimo.model.Related
 import com.omid.filimo.model.Video
 import com.omid.filimo.utils.configuration.AppConfiguration
 
-class SingleVideoAdapter(private val list: MutableList<Related>, private val iSelected : IOnSelectListener): RecyclerView.Adapter<SingleVideoVH>() {
+class SingleVideoAdapter(private val list: List<Related>, private val iSelected : IOnSelectListener): RecyclerView.Adapter<SingleVideoVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleVideoVH {
         return SingleVideoVH(LayoutInflater.from(AppConfiguration.getContext()).inflate(R.layout.single_video_row,null))

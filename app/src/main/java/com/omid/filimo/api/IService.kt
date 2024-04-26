@@ -9,13 +9,10 @@ import com.omid.filimo.model.ForgetPasswordModel
 import com.omid.filimo.model.HomeVideos
 import com.omid.filimo.model.LatestVideoModel
 import com.omid.filimo.model.ProfileUpdateModel
-import com.omid.filimo.model.RatingModel
 import com.omid.filimo.model.SearchModel
 import com.omid.filimo.model.SingleVideoModel
 import com.omid.filimo.model.UserLoginModel
-import com.omid.filimo.model.UserProfileModel
 import com.omid.filimo.model.UserRegisterModel
-import com.omid.filimo.model.UserStatusModel
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.Response
 import retrofit2.http.GET
@@ -60,10 +57,7 @@ interface IService {
     fun userLogin(
         @Query("email") email: String,
         @Query("password") password: String
-    ): Observable<UserLoginModel>
-
-    @GET("api.php?user_profile")
-    suspend fun userProfile(@Query("id") id: String): Response<UserProfileModel>
+    ):Observable<UserLoginModel>
 
     @GET("api.php?user_profile_update")
     fun userProfileUpdate(
@@ -74,24 +68,13 @@ interface IService {
         @Query("phone") phone: String
     ): Observable<ProfileUpdateModel>
 
-    @GET("api.php?user_status")
-    suspend fun userStatus(@Query("user_id") userId: String): Response<UserStatusModel>
-
     @GET("api.php?forgot_pass")
     fun forgetPassword(@Query("email") email: String): Observable<ForgetPasswordModel>
-
-    @GET("api.php?video_rate")
-    fun rating(
-        @Query("device_id") deviceId: String = "123",
-        @Query("post_id") postId: String = "8",
-        @Query("user_id") userId: String,
-        @Query("rate") rate: String
-    ): Observable<RatingModel>
 
     @GET("api.php?video_comment")
     fun comment(
         @Query("comment_text") commentText: String,
         @Query("user_name") userName: String,
-        @Query("post_id") postId: String = "19"
+        @Query("post_id") postId: String
     ): Observable<CommentModel>
 }

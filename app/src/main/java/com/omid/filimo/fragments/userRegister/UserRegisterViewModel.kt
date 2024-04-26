@@ -15,10 +15,10 @@ import kotlinx.coroutines.launch
 class UserRegisterViewModel(application: Application) : AndroidViewModel(application) {
 
     private val webServiceCaller = WebServiceCaller()
-    private val userRegisterModel = MutableLiveData<UserRegisterModel?>()
+    private val userRegisterModel = MutableLiveData<UserRegisterModel>()
     val checkNetworkConnection = CheckNetworkConnection(application)
 
-    fun getRegister(name: String, email: String, password: String, phone: String): MutableLiveData<UserRegisterModel?> {
+    fun getRegister(name: String, email: String, password: String, phone: String): MutableLiveData<UserRegisterModel> {
         CoroutineScope(Dispatchers.IO).launch {
             webServiceCaller.getUserRegister(name, email, password, phone).apply {
                 userRegisterModel.postValue(this)

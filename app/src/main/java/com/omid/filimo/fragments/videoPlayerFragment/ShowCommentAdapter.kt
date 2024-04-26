@@ -7,7 +7,7 @@ import com.omid.filimo.R
 import com.omid.filimo.model.UserComment
 import com.omid.filimo.utils.configuration.AppConfiguration
 
-class ShowCommentAdapter(private val list: MutableList<UserComment>): RecyclerView.Adapter<ShowCommentVH>() {
+class ShowCommentAdapter(private val list: List<UserComment>): RecyclerView.Adapter<ShowCommentVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowCommentVH {
         return ShowCommentVH(LayoutInflater.from(AppConfiguration.getContext()).inflate(R.layout.show_comment_row,null))
