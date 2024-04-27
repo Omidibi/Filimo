@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.omid.filimo.R
 import com.omid.filimo.config.AppSettings
@@ -25,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setupBinding()
         currentPage()
-      //  checkUiStatus()
         setupBnvInActivity()
         clickEvent()
     }
@@ -48,15 +45,6 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             navController.navigate(R.id.showCaseFragment)
             bnv.menu.findItem(R.id.item_showcase).isChecked = true
-        }
-    }
-
-    private fun checkUiStatus(){
-        if (MainWidget.bnv.visibility == View.GONE){
-            MainWidget.bnv.visibility = View.VISIBLE
-        }
-        if (MainWidget.toolbar.visibility == View.GONE){
-            MainWidget.toolbar.visibility = View.VISIBLE
         }
     }
 
@@ -97,12 +85,12 @@ class MainActivity : AppCompatActivity() {
                     val dialog = AlertDialog.Builder(this@MainActivity)
                     dialog.setTitle("ثبت نام یا ورود")
                     dialog.setMessage("برای وارد شدن به حساب کاربری ابتدا وارد شوید یا ثبت نام کنید")
-                    dialog.setPositiveButton("بله") { p0, p1 ->
+                    dialog.setPositiveButton("بله") { _, _ ->
                         navController.navigate(R.id.loginFragment)
                         MainWidget.bnv.visibility = View.GONE
                         MainWidget.toolbar.visibility = View.GONE
                     }
-                    dialog.setNegativeButton("خیر") { p0, p1 ->
+                    dialog.setNegativeButton("خیر") { _, _ ->
 
                     }
                     dialog.show()

@@ -7,10 +7,58 @@
     android:background="@color/nero_7"
     tools:context=".fragments.videoPlayerFragment.VideoPlayerFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_player"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/playing_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:show_buffering="when_playing" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_close_player"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="@dimen/_4dp"
+            android:src="@drawable/close"
+            android:layout_margin="@dimen/_8dp"
+            android:tint="@color/white"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/playing_video"
+            app:layout_constraintTop_toTopOf="@+id/playing_video" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_bookmark"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="@dimen/_4dp"
+            android:layout_margin="@dimen/_8dp"
+            android:tint="@color/white"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@id/img_close_player"
+            app:layout_constraintTop_toTopOf="@+id/playing_video" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv"
         android:layout_width="@dimen/_0dp"
         android:layout_height="@dimen/_0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,12 +158,11 @@
                 android:id="@+id/cv_pic"
                 android:layout_width="@dimen/_150dp"
                 android:layout_height="@dimen/_200dp"
-                android:layout_marginTop="@dimen/_20dp"
                 android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_20dp"
                 app:cardCornerRadius="@dimen/_8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_back"
-                app:layout_constraintVertical_bias="0.100000000">
+                app:layout_constraintBottom_toTopOf="@id/about_video"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -137,14 +184,14 @@
 
             <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                 android:id="@+id/txt_imdb"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4dp"
                 android:layout_marginStart="@dimen/_40dp"
+                android:layout_marginTop="@dimen/_4dp"
                 android:text="@string/imdb"
                 android:textColor="@color/sunGlow"
                 android:textSize="@dimen/_20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cl_pic_info" />
 
@@ -153,9 +200,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2dp"
+                android:gravity="center"
                 android:text="@string/point"
                 android:textColor="@color/white"
-                android:gravity="center"
                 android:textSize="@dimen/_16sp"
                 app:layout_constraintEnd_toEndOf="@+id/txt_imdb"
                 app:layout_constraintStart_toStartOf="@+id/txt_imdb"
@@ -165,13 +212,13 @@
                 android:id="@+id/about_video"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_4dp"
                 android:layout_marginEnd="@dimen/_8dp"
                 android:text="@string/about_video"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_pic" />
+                app:layout_constraintTop_toBottomOf="@id/point_imdb" />
 
             <com.omid.filimo.ui.customView.customFonts.IranSansTextView
                 android:id="@+id/text_about"

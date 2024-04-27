@@ -45,7 +45,11 @@
         android:id="@+id/myFilmsFragment"
         android:name="com.omid.filimo.ui.dashboard.myFilms.MyFilmsFragment"
         android:label="fragment_myfilms"
-        tools:layout="@layout/fragment_myfilms" />
+        tools:layout="@layout/fragment_myfilms" >
+        <action
+            android:id="@+id/action_myFilmsFragment_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/allVideoFragment"
         android:name="com.omid.filimo.fragments.allVideoFragment.AllVideoFragment"

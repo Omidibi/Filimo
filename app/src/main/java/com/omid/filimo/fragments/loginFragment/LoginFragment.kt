@@ -85,7 +85,6 @@ class LoginFragment : Fragment() {
                     appSettings.name(i.name)
                     appSettings.email(i.email)
                     appSettings.userId(i.userId)
-                    findNavController().popBackStack()
                     Toast.makeText(requireContext(),"شما وارد حساب خود شدید",Toast.LENGTH_LONG).show()
                 } else if (i.success.contains("0")) {
                     Toast.makeText(requireContext(),"نام یا ایمیل شما اشتباه میباشد",Toast.LENGTH_LONG).show()

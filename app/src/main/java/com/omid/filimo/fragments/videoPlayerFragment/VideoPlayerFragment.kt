@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,8 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -24,6 +25,7 @@ import com.omid.filimo.databinding.FragmentVideoPlayerBinding
 import com.omid.filimo.model.Related
 import com.omid.filimo.model.UserComment
 import com.omid.filimo.model.Video
+import com.omid.filimo.model.VideoBookmark
 import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
 
 class VideoPlayerFragment : Fragment(), IOnSelectListener {
@@ -35,6 +37,7 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
     private lateinit var relatedList: MutableList<Related>
     private lateinit var userComment: MutableList<UserComment>
     private val appSettings = AppSettings()
+    private lateinit var exoPlayer: ExoPlayer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,9 +60,15 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
         progressBarStatus()
     }
 
+    override fun onStop() {
+        super.onStop()
+        exoPlayer.stop()
+    }
+
     private fun setupBinding(){
         binding = FragmentVideoPlayerBinding.inflate(layoutInflater)
         videoPlayerViewModel = ViewModelProvider(this)[VideoPlayerViewModel::class.java]
+        exoPlayer = ExoPlayer.Builder(requireContext()).build()
         relatedList = mutableListOf()
         userComment = mutableListOf()
     }
@@ -75,6 +84,11 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
                 textAbout.text = Html.fromHtml(video.videoDescription,Html.FROM_HTML_MODE_COMPACT)
             }else {
                 textAbout.text = Html.fromHtml(video.videoDescription)
+            }
+            if (videoPlayerViewModel.isBookmarkEmpty(video.id)){
+                Glide.with(requireContext()).load(R.drawable.not_bookmark).into(imgBookmark)
+            }else {
+                Glide.with(requireContext()).load(R.drawable.bookmark).into(imgBookmark)
             }
         }
     }
@@ -99,7 +113,6 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
             Glide.with(requireContext()).load(video.videoThumbnailB).into(imgVideo)
             videoName.text = video.videoTitle
             txtTotalViewer.text = video.totalViewer
-            Log.e("","")
         }
     }
 
@@ -125,11 +138,13 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
         binding.apply {
             if (isAdded){
                 videoPlayerViewModel.checkNetworkConnection.observe(owner){ isConnect->
+                    clPlayer.visibility = View.GONE
                     nsv.visibility = View.GONE
                     pb.visibility = View.VISIBLE
                     liveNoConnection.visibility = View.GONE
                     if (isConnect){
                         videoPlayerViewModel.getSingleVideo(video.id).observe(owner){ singleVideoModel->
+                            clPlayer.visibility = View.GONE
                             nsv.visibility = View.VISIBLE
                             pb.visibility = View.GONE
                             liveNoConnection.visibility = View.GONE
@@ -156,9 +171,11 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
                         }
                     }else {
+                        clPlayer.visibility = View.GONE
                         nsv.visibility = View.GONE
                         pb.visibility = View.GONE
                         liveNoConnection.visibility = View.VISIBLE
+                        exoPlayer.stop()
                     }
                 }
             }
@@ -186,10 +203,16 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
             }
 
             requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-                findNavController().popBackStack()
-                appSettings.saveStatusFragment(0)
-                MainWidget.bnv.visibility = View.VISIBLE
-                MainWidget.toolbar.visibility = View.VISIBLE
+                if (clPlayer.visibility == View.VISIBLE){
+                    clPlayer.visibility = View.GONE
+                    nsv.visibility = View.VISIBLE
+                    exoPlayer.pause()
+                }else {
+                    findNavController().popBackStack()
+                    appSettings.saveStatusFragment(0)
+                    MainWidget.bnv.visibility = View.VISIBLE
+                    MainWidget.toolbar.visibility = View.VISIBLE
+                }
             }
 
             sendComment.setOnClickListener {
@@ -233,9 +256,31 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
                     }
                     dialog.show()
                 }else {
-                    Toast.makeText(requireContext(),"ویدیو پخش شود",Toast.LENGTH_LONG).show()
+                    playVideo()
                 }
             }
+
+            imgClosePlayer.setOnClickListener {
+                nsv.visibility = View.VISIBLE
+                clPlayer.visibility = View.GONE
+                exoPlayer.stop()
+            }
+
+            imgBookmark.setOnClickListener {
+                videoPlayerViewModel.insertBookmark(VideoBookmark(video.catId, video.categoryImage, video.categoryImageThumb, video.categoryName, video.cid, video.id, video.rateAvg, video.totalViewer, video.videoDescription, video.videoDuration, video.videoId, video.videoThumbnailB, video.videoThumbnailS, video.videoTitle, video.videoType, video.videoUrl),video.id,imgBookmark)
+            }
+        }
+    }
+
+    private fun playVideo(){
+        binding.apply {
+            nsv.visibility = View.GONE
+            clPlayer.visibility = View.VISIBLE
+            playingVideo.player = exoPlayer
+            exoPlayer.addMediaItem(MediaItem.fromUri(video.videoUrl))
+            exoPlayer.play()
+            exoPlayer.prepare()
+            videoPlayerViewModel.insertViewed(video,video.id)
         }
     }
 

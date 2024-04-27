@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity("tbl_viewed")
+@Entity("tbl_bookmark")
 @Parcelize
-data class Video(
+data class VideoBookmark(
     @ColumnInfo("cat_id")
     @SerializedName("cat_id")
     val catId: String,
@@ -60,4 +60,4 @@ data class Video(
     val videoUrl: String,
     @PrimaryKey(autoGenerate = true)
     val idPrimaryKey: Int = 0
-) : Parcelable
+): Parcelable
