@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -171,6 +172,11 @@ class ShowCaseFragment : Fragment() {
                 findNavController().navigate(R.id.action_showCaseFragment_to_categoryFragment)
                 MainWidget.bnv.menu.findItem(R.id.item_category).isChecked = true
                 CustomUI.changeStatusOnClickEvent(MainWidget.bnv)
+            }
+
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+
+
             }
         }
     }

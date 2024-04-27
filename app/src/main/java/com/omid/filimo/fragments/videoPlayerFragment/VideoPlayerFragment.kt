@@ -148,18 +148,20 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
                             nsv.visibility = View.VISIBLE
                             pb.visibility = View.GONE
                             liveNoConnection.visibility = View.GONE
-                            for (singleVideo in singleVideoModel.singleVideo){
-                                for (comments in singleVideo.userComments){
-                                    userComment.add(comments)
+                            singleVideoModel.let {
+                                for (singleVideo in it.singleVideo){
+                                    for (comments in singleVideo.userComments){
+                                        userComment.add(comments)
 
+                                    }
+                                    for(related in singleVideo.related){
+                                        relatedList.add(related)
+                                    }
+                                    rvSingleVideo.adapter = it?.singleVideo?.let { SingleVideoAdapter(singleVideo.related,this@VideoPlayerFragment) }
+                                    rvSingleVideo.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
+                                    rvCommentList.adapter = it?.singleVideo?.let { ShowCommentAdapter(singleVideo.userComments) }
+                                    rvCommentList.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
                                 }
-                                for(related in singleVideo.related){
-                                   relatedList.add(related)
-                                }
-                                rvSingleVideo.adapter = singleVideoModel?.singleVideo?.let { SingleVideoAdapter(singleVideo.related,this@VideoPlayerFragment) }
-                                rvSingleVideo.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
-                                rvCommentList.adapter = singleVideoModel?.singleVideo?.let { ShowCommentAdapter(singleVideo.userComments) }
-                                rvCommentList.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
                             }
                             if (userComment.isEmpty()){
                                 rvCommentList.visibility = View.GONE
@@ -295,13 +297,19 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
                 relatedList.clear()
                 userComment.clear()
                 nsv.scrollTo(0,0)
-                for (singleVideo in singleVideoModel.singleVideo){
-                    for (comments in singleVideo.userComments){
-                        userComment.add(comments)
+                singleVideoModel.let {
+                    for (singleVideo in it.singleVideo){
+                        for (comments in singleVideo.userComments){
+                            userComment.add(comments)
+                        }
+                        for(related in singleVideo.related){
+                            relatedList.add(related)
+                        }
                     }
-                    for(related in singleVideo.related){
-                        relatedList.add(related)
-                    }
+                    rvSingleVideo.adapter = it?.singleVideo?.let { SingleVideoAdapter(relatedList,this@VideoPlayerFragment) }
+                    rvSingleVideo.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
+                    rvCommentList.adapter = it?.singleVideo?.let { ShowCommentAdapter(userComment) }
+                    rvCommentList.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
                 }
                 if (userComment.isEmpty()){
                     rvCommentList.visibility = View.GONE
@@ -310,10 +318,6 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
                     rvCommentList.visibility = View.VISIBLE
                     txtNoComment.visibility = View.GONE
                 }
-                rvSingleVideo.adapter = singleVideoModel?.singleVideo?.let { SingleVideoAdapter(relatedList,this@VideoPlayerFragment) }
-                rvSingleVideo.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
-                rvCommentList.adapter = singleVideoModel?.singleVideo?.let { ShowCommentAdapter(userComment) }
-                rvCommentList.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
             }
             Glide.with(requireContext()).load(video.videoThumbnailB).into(imgBanner)
             Glide.with(requireContext()).load(video.videoThumbnailB).into(imgVideo)

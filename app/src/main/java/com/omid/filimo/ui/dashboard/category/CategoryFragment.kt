@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ class CategoryFragment : Fragment() {
         checkNetwork()
         categoryObserver()
         progressBarStatus()
+        clickEvents()
     }
 
     private fun setupBinding() {
@@ -84,5 +86,11 @@ class CategoryFragment : Fragment() {
 
     private fun progressBarStatus() {
         ProgressBarStatus.pbStatus(binding.pbCategory)
+    }
+
+    private fun clickEvents(){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+
+        }
     }
 }

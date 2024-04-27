@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -24,6 +25,7 @@ class MyFilmsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         checkUiStatus()
         setupTabLayout()
+        clickEvents()
     }
 
     private fun setupBinding() {
@@ -72,6 +74,12 @@ class MyFilmsFragment : Fragment() {
                     }
                 }
             })
+        }
+    }
+
+    private fun clickEvents(){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+
         }
     }
 }
