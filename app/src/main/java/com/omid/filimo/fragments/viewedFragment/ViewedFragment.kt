@@ -22,8 +22,14 @@ class ViewedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkNetwork()
+        checkUi()
         checkLiveInternet()
         setupRvViewed()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkNetwork()
     }
 
     private fun setupBinding() {
@@ -39,6 +45,18 @@ class ViewedFragment : Fragment() {
             }else {
                 rvViewed.visibility = View.GONE
                 liveNoConnection.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun checkUi(){
+        binding.apply {
+            if (viewedViewModel.isEmptyViewed()){
+                emptyViewed.visibility = View.VISIBLE
+                rvViewed.visibility = View.GONE
+            }else{
+                emptyViewed.visibility = View.GONE
+                rvViewed.visibility = View.VISIBLE
             }
         }
     }

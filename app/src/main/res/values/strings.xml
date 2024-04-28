@@ -34,4 +34,7 @@
     <string name="rate_it">به این فیلم امتیاز دهید</string>
     <string name="forget_password">فراموش رمز عبور</string>
     <string name="send_request">بازیابی رمز عبور</string>
+    <string name="empty_bookmark">لیست نشان شده ها خالی می باشد</string>
+    <string name="empty_viewed">لیست مشاهده شده ها خالی می باشد</string>
+    <string name="download_completed">اتمام دانلود</string>
 </resources>

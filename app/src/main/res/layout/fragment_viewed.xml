@@ -7,6 +7,19 @@
     android:background="@color/nero_7"
     tools:context=".fragments.viewedFragment.ViewedFragment">
 
+    <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+        android:id="@+id/empty_viewed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_viewed"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_viewed"
         android:layout_width="@dimen/_0dp"

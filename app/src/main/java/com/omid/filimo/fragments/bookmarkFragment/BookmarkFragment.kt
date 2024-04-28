@@ -22,8 +22,14 @@ class BookmarkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkNetwork()
+        checkUi()
         checkLiveInternet()
         setupRvViewed()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkNetwork()
     }
 
     private fun setupBinding(){
@@ -39,6 +45,18 @@ class BookmarkFragment : Fragment() {
             }else {
                 rvBookmark.visibility = View.GONE
                 liveNoConnection.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun checkUi(){
+        binding.apply {
+            if (bookmarkViewModel.isEmptyBookmark()){
+                emptyBookmark.visibility = View.VISIBLE
+                rvBookmark.visibility = View.GONE
+            }else{
+                emptyBookmark.visibility = View.GONE
+                rvBookmark.visibility = View.VISIBLE
             }
         }
     }

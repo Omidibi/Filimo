@@ -19,4 +19,8 @@ class BookmarkViewModel(application: Application) : AndroidViewModel(application
     fun showAllBookmark(): MutableList<VideoBookmark> {
         return RoomDBInstance.roomDbInstance.dao().showAllBookmark()
     }
+
+    fun isEmptyBookmark(): Boolean {
+        return RoomDBInstance.roomDbInstance.dao().showAllBookmark().isEmpty()
+    }
 }

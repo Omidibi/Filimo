@@ -52,6 +52,18 @@
             app:layout_constraintStart_toEndOf="@id/img_close_player"
             app:layout_constraintTop_toTopOf="@+id/playing_video" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_download"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="@dimen/_4dp"
+            android:layout_margin="@dimen/_8dp"
+            android:tint="@color/white"
+            android:src="@drawable/download"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@id/img_bookmark"
+            app:layout_constraintTop_toTopOf="@+id/playing_video" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView

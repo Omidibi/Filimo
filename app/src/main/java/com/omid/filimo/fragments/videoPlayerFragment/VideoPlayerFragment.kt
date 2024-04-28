@@ -1,15 +1,25 @@
 package com.omid.filimo.fragments.videoPlayerFragment
 
+import android.Manifest
 import android.app.AlertDialog
+import android.app.DownloadManager
+import android.content.ContentValues
 import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +37,14 @@ import com.omid.filimo.model.UserComment
 import com.omid.filimo.model.Video
 import com.omid.filimo.model.VideoBookmark
 import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.InputStream
+import java.io.OutputStream
+import java.net.URL
 
 class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
@@ -38,6 +56,12 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
     private lateinit var userComment: MutableList<UserComment>
     private val appSettings = AppSettings()
     private lateinit var exoPlayer: ExoPlayer
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private var storagePermissions33 = arrayOf(Manifest.permission.READ_MEDIA_AUDIO)
+    private var storagePermissions = arrayOf(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -50,6 +74,7 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkNetwork()
@@ -138,14 +163,18 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
         binding.apply {
             if (isAdded){
                 videoPlayerViewModel.checkNetworkConnection.observe(owner){ isConnect->
-                    clPlayer.visibility = View.GONE
                     nsv.visibility = View.GONE
                     pb.visibility = View.VISIBLE
                     liveNoConnection.visibility = View.GONE
                     if (isConnect){
                         videoPlayerViewModel.getSingleVideo(video.id).observe(owner){ singleVideoModel->
-                            clPlayer.visibility = View.GONE
-                            nsv.visibility = View.VISIBLE
+                            if (clPlayer.visibility == View.VISIBLE){
+                                clPlayer.visibility = View.VISIBLE
+                                nsv.visibility = View.GONE
+                            }else{
+                                clPlayer.visibility = View.GONE
+                                nsv.visibility = View.VISIBLE
+                            }
                             pb.visibility = View.GONE
                             liveNoConnection.visibility = View.GONE
                             singleVideoModel.let {
@@ -173,11 +202,13 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
                         }
                     }else {
-                        clPlayer.visibility = View.GONE
                         nsv.visibility = View.GONE
                         pb.visibility = View.GONE
                         liveNoConnection.visibility = View.VISIBLE
-                        exoPlayer.stop()
+                        if (clPlayer.visibility == View.VISIBLE){
+                            clPlayer.visibility = View.VISIBLE
+                            exoPlayer.pause()
+                        }
                     }
                 }
             }
@@ -194,6 +225,7 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun clickEvents(){
         binding.apply {
 
@@ -208,7 +240,8 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
                 if (clPlayer.visibility == View.VISIBLE){
                     clPlayer.visibility = View.GONE
                     nsv.visibility = View.VISIBLE
-                    exoPlayer.pause()
+                    exoPlayer.stop()
+                    exoPlayer.clearMediaItems()
                 }else {
                     findNavController().popBackStack()
                     appSettings.saveStatusFragment(0)
@@ -266,10 +299,15 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
                 nsv.visibility = View.VISIBLE
                 clPlayer.visibility = View.GONE
                 exoPlayer.stop()
+                exoPlayer.clearMediaItems()
             }
 
             imgBookmark.setOnClickListener {
                 videoPlayerViewModel.insertBookmark(VideoBookmark(video.catId, video.categoryImage, video.categoryImageThumb, video.categoryName, video.cid, video.id, video.rateAvg, video.totalViewer, video.videoDescription, video.videoDuration, video.videoId, video.videoThumbnailB, video.videoThumbnailS, video.videoTitle, video.videoType, video.videoUrl),video.id,imgBookmark)
+            }
+
+            imgDownload.setOnClickListener {
+                downloadVideo()
             }
         }
     }
@@ -286,10 +324,72 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun downloadVideo(){
+        binding.apply {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(requireActivity(), storagePermissions33, 1)
+                } else {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        try {
+                            val url = URL(video.videoUrl)
+                            val connection = url.openConnection()
+                            connection.connect()
+                            val inputStream: InputStream = connection.getInputStream()
+                            val resolver = requireContext().contentResolver
+                            val contentValues = ContentValues().apply {
+                                put(MediaStore.MediaColumns.DISPLAY_NAME, "${video.videoTitle}.mp4")
+                                put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
+                                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MOVIES + "/Filimo")
+                            }
+                            val uri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues)
+                            val outputStream: OutputStream? = resolver.openOutputStream(uri!!)
+                            inputStream.copyTo(outputStream!!)
+                            outputStream.close()
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(requireContext(), getString(R.string.download_completed), Toast.LENGTH_LONG).show()
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+
+            } else {
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(requireActivity(), storagePermissions, 1)
+                } else {
+                    /** روش دانلود برای نسخه 10 اندروید*/
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                        val request = DownloadManager.Request(Uri.parse(video.videoUrl))
+                            .setTitle(requireActivity().title)
+                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                            .setDestinationInExternalPublicDir(Environment.DIRECTORY_MOVIES, "${video.videoTitle}.mp4")
+                            .setAllowedOverMetered(true)
+                            .setAllowedOverRoaming(true)
+                        val downloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                        downloadManager.enqueue(request)
+                    } else {
+                        /** روش دانلود برای دیگر نسخه های اندروید*/
+                        val request = DownloadManager.Request(Uri.parse(video.videoUrl))
+                            .setTitle(requireActivity().title)
+                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                            .setDestinationInExternalPublicDir(Environment.DIRECTORY_MOVIES, "/Filimo/${video.videoTitle}.mp4")
+                        val downloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                        downloadManager.enqueue(request)
+                    }
+                }
+            }
+        }
+    }
+
     private fun newStateFragment(video: Video){
         binding.apply {
             appSettings.saveStatusFragment(1)
             appSettings.saveRelate(Related(video.catId,video.categoryName,video.id,video.rateAvg,video.totalViewer,video.videoDescription,video.videoDuration,video.videoId,video.videoThumbnailB,video.videoThumbnailS,video.videoTitle,video.videoType,video.videoUrl))
+            this@VideoPlayerFragment.video = Video(video.catId,video.categoryImage,video.categoryImageThumb,video.categoryName,video.cid,video.id,video.rateAvg,video.totalViewer,video.videoDescription,video.videoDuration,video.videoId,video.videoThumbnailB,video.videoThumbnailS,video.videoTitle,video.videoType,video.videoUrl)
             pb.visibility = View.VISIBLE
             nsv.visibility = View.GONE
             liveNoConnection.visibility = View.GONE
@@ -328,30 +428,10 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
             }else {
                 textAbout.text = Html.fromHtml(video.videoDescription)
             }
-            sendComment.setOnClickListener {
-                if (appSettings.getLock() == 0){
-                    val dialog = AlertDialog.Builder(requireContext())
-                    dialog.setTitle("ثبت نام یا ورود")
-                    dialog.setMessage("برای ارسال نظر ابتدا وارد شوید یا ثبت نام کنید")
-                    dialog.setPositiveButton("بله") { _, _ ->
-                        findNavController().navigate(R.id.action_videoPlayerFragment_to_loginFragment)
-                        MainWidget.bnv.visibility = View.GONE
-                        MainWidget.toolbar.visibility = View.GONE
-                    }
-                    dialog.setNegativeButton("خیر") { _, _ ->
-
-                    }
-                    dialog.show()
-                }else {
-                    if (typeComment.text?.isEmpty() == true){
-                        Toast.makeText(requireContext(),"نظری بنویسید سپس ارسال کنید",Toast.LENGTH_LONG).show()
-                    }else {
-                        videoPlayerViewModel.getComment(typeComment.text.toString(),appSettings.getName().toString(),video.id).observe(owner){
-                            typeComment.setText("")
-                            Toast.makeText(requireContext(),"نظر شما ارسال شد",Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
+            if (videoPlayerViewModel.isBookmarkEmpty(video.id)){
+                Glide.with(requireContext()).load(R.drawable.not_bookmark).into(imgBookmark)
+            }else {
+                Glide.with(requireContext()).load(R.drawable.bookmark).into(imgBookmark)
             }
         }
     }

@@ -19,4 +19,8 @@ class ViewedViewModel(application: Application) : AndroidViewModel(application) 
     fun showAllViewed(): MutableList<Video> {
         return RoomDBInstance.roomDbInstance.dao().showAllViewed()
     }
+
+    fun isEmptyViewed(): Boolean {
+        return RoomDBInstance.roomDbInstance.dao().showAllViewed().isEmpty()
+    }
 }
