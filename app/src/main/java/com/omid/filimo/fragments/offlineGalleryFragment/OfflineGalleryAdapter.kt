@@ -1,15 +1,22 @@
 package com.omid.filimo.fragments.offlineGalleryFragment
 
 import android.media.MediaMetadataRetriever
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.omid.filimo.R
+import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.utils.configuration.AppConfiguration
 import java.io.File
 
-class OfflineGalleryAdapter(private val videoOffline: List<File>):RecyclerView.Adapter<OfflineGalleryVH>() {
+class OfflineGalleryAdapter(private val videoOffline: List<File>,private val fragment: Fragment):RecyclerView.Adapter<OfflineGalleryVH>() {
+
+    private val bundle = Bundle()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfflineGalleryVH {
         return OfflineGalleryVH(LayoutInflater.from(AppConfiguration.getContext()).inflate(R.layout.offline_gallery_row,null))
@@ -22,13 +29,18 @@ class OfflineGalleryAdapter(private val videoOffline: List<File>):RecyclerView.A
     override fun onBindViewHolder(holder: OfflineGalleryVH, position: Int) {
         holder.apply {
             val videoOffline = videoOffline[position]
-            txtOffline.text = videoOffline.name
-            val retriever = MediaMetadataRetriever()
-            retriever.setDataSource(videoOffline.path)
-            val bitmap = retriever.frameAtTime
-            Glide.with(AppConfiguration.getContext()).load(bitmap).into(imgOffline)
-            cvOffline.setOnClickListener {
-
+            if (videoOffline.exists()){
+                txtOffline.text = videoOffline.name
+                val retriever = MediaMetadataRetriever()
+                retriever.setDataSource(videoOffline.path)
+                val bitmap = retriever.frameAtTime
+                Glide.with(AppConfiguration.getContext()).load(bitmap).into(imgOffline)
+                cvOffline.setOnClickListener {
+                    bundle.putString("play_offline",videoOffline.toURI().toString())
+                    fragment.findNavController().navigate(R.id.action_myFilmsFragment_to_videoPlayerOfflineFragment,bundle)
+                    MainWidget.bnv.visibility = View.GONE
+                    MainWidget.toolbar.visibility = View.GONE
+                }
             }
         }
     }

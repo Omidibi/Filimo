@@ -6,6 +6,45 @@
     android:layout_height="match_parent"
     android:background="@color/nero_7"
     tools:context=".fragments.offlineGalleryFragment.OfflineGalleryFragment">
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_login_status"
+        android:layout_width="@dimen/_0dp"
+        android:visibility="gone"
+        android:layout_height="@dimen/_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+            android:id="@+id/txt_show_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/_8dp"
+            android:text="@string/check_login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sp"
+            android:layout_marginTop="@dimen/_200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_login_register"
+            android:layout_width="@dimen/_150dp"
+            android:layout_height="@dimen/_65dp"
+            android:layout_marginTop="@dimen/_16dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sp"
+            android:text="@string/login_or_register"
+            android:background="@drawable/bac_btn_register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_show_status" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_offline"
@@ -21,7 +60,20 @@
         android:id="@+id/rv_offline_q"
         android:layout_width="@dimen/_0dp"
         android:layout_height="@dimen/_0dp"
-        android:visibility="visible"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.omid.filimo.ui.customView.customFonts.IranSansTextView
+        android:id="@+id/empty_offline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sp"
+        android:text="@string/empty_offline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

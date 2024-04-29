@@ -37,4 +37,8 @@
     <string name="empty_bookmark">لیست نشان شده ها خالی می باشد</string>
     <string name="empty_viewed">لیست مشاهده شده ها خالی می باشد</string>
     <string name="download_completed">اتمام دانلود</string>
+    <string name="empty_offline">گالری آفلاین خالی می باشد</string>
+    <string name="check_login">برای استفاده از گالری آفلاین\nابتدا وارد شوید یا ثبت نام کنید</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
