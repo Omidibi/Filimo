@@ -26,9 +26,9 @@ class AllVideoViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun getAllVideo(){
-        if (checkNetworkConnection.value == true){
-            CoroutineScope(Dispatchers.IO).launch{
+    fun getAllVideo() {
+        if (checkNetworkConnection.value == true) {
+            CoroutineScope(Dispatchers.IO).launch {
                 webServiceCaller.getAllVideo().apply {
                     allVideoModel.postValue(this)
                 }

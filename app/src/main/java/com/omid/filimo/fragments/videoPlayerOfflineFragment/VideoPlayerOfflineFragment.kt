@@ -35,16 +35,16 @@ class VideoPlayerOfflineFragment : Fragment() {
         exoPlayer.stop()
     }
 
-    private fun setupBinding(){
+    private fun setupBinding() {
         binding = FragmentVideoPlayerOfflineBinding.inflate(layoutInflater)
         exoPlayer = ExoPlayer.Builder(requireContext()).build()
     }
 
-    private fun getData(){
+    private fun getData() {
         uri = requireArguments().getString("play_offline")!!
     }
 
-    private fun setupPlayer(){
+    private fun setupPlayer() {
         binding.apply {
             playingVideoOffline.player = exoPlayer
             exoPlayer.addMediaItem(MediaItem.fromUri(uri))
@@ -53,7 +53,7 @@ class VideoPlayerOfflineFragment : Fragment() {
         }
     }
 
-    private fun clickEvents(){
+    private fun clickEvents() {
         binding.apply {
             imgBack.setOnClickListener {
                 findNavController().popBackStack()
@@ -61,7 +61,7 @@ class VideoPlayerOfflineFragment : Fragment() {
                 MainWidget.toolbar.visibility = View.VISIBLE
             }
 
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
                 findNavController().popBackStack()
                 MainWidget.bnv.visibility = View.VISIBLE
                 MainWidget.toolbar.visibility = View.VISIBLE

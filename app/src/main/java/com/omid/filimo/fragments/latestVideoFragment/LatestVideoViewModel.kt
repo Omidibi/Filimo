@@ -23,8 +23,8 @@ class LatestVideoViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    fun getLatestVideo(){
-        if (checkNetworkConnection.value == true){
+    fun getLatestVideo() {
+        if (checkNetworkConnection.value == true) {
             webServiceCaller.getLatestVideo()
         }
     }

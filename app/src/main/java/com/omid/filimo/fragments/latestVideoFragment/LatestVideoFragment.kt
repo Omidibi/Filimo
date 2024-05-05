@@ -41,17 +41,17 @@ class LatestVideoFragment : Fragment() {
         clickEvents()
     }
 
-    private fun setupBinding(){
+    private fun setupBinding() {
         binding = FragmentLatestVideoBinding.inflate(layoutInflater)
         latestVideoViewModel = ViewModelProvider(this)[LatestVideoViewModel::class.java]
     }
 
-    private fun checkStatusUI(){
+    private fun checkStatusUI() {
         binding.apply {
-            if (MainWidget.bnv.visibility == View.VISIBLE){
+            if (MainWidget.bnv.visibility == View.VISIBLE) {
                 MainWidget.bnv.visibility = View.GONE
             }
-            if (MainWidget.toolbar.visibility == View.VISIBLE){
+            if (MainWidget.toolbar.visibility == View.VISIBLE) {
                 MainWidget.toolbar.visibility = View.GONE
             }
         }
@@ -61,7 +61,7 @@ class LatestVideoFragment : Fragment() {
         ProgressBarStatus.pbStatus(binding.pbLatestVideo)
     }
 
-    private fun checkNetwork(){
+    private fun checkNetwork() {
         binding.apply {
             if (latestVideoViewModel.networkAvailable()) {
                 srl.visibility = View.VISIBLE
@@ -75,22 +75,22 @@ class LatestVideoFragment : Fragment() {
         }
     }
 
-    private fun latestVideoObserver(){
+    private fun latestVideoObserver() {
         binding.apply {
-            if (isAdded){
-                latestVideoViewModel.checkNetworkConnection.observe(owner){ isConnect->
+            if (isAdded) {
+                latestVideoViewModel.checkNetworkConnection.observe(owner) { isConnect ->
                     pbLatestVideo.visibility = View.VISIBLE
                     srl.visibility = View.GONE
                     liveNoConnection.visibility = View.GONE
-                    if (isConnect){
-                        latestVideoViewModel.latestVideoModel.observe(owner){ latestVideoModel->
+                    if (isConnect) {
+                        latestVideoViewModel.latestVideoModel.observe(owner) { latestVideoModel ->
                             pbLatestVideo.visibility = View.GONE
                             srl.visibility = View.VISIBLE
                             liveNoConnection.visibility = View.GONE
-                            rvLatestVideo.adapter = latestVideoModel?.latestVideo?.let { LatestVideoListAdapter(it,this@LatestVideoFragment) }
-                            rvLatestVideo.layoutManager = GridLayoutManager(requireContext(),3)
+                            rvLatestVideo.adapter = latestVideoModel?.latestVideo?.let { LatestVideoListAdapter(it, this@LatestVideoFragment) }
+                            rvLatestVideo.layoutManager = GridLayoutManager(requireContext(), 3)
                         }
-                    }else {
+                    } else {
                         pbLatestVideo.visibility = View.GONE
                         srl.visibility = View.GONE
                         liveNoConnection.visibility = View.VISIBLE
@@ -100,7 +100,7 @@ class LatestVideoFragment : Fragment() {
         }
     }
 
-    private fun srlStatus(){
+    private fun srlStatus() {
         binding.apply {
             srl.setOnRefreshListener {
                 pbLatestVideo.visibility = View.VISIBLE
@@ -112,7 +112,7 @@ class LatestVideoFragment : Fragment() {
         }
     }
 
-    private fun clickEvents(){
+    private fun clickEvents() {
         binding.apply {
 
             imgBack.setOnClickListener {
@@ -121,7 +121,7 @@ class LatestVideoFragment : Fragment() {
                 MainWidget.toolbar.visibility = View.VISIBLE
             }
 
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
                 findNavController().popBackStack()
                 MainWidget.bnv.visibility = View.VISIBLE
                 MainWidget.toolbar.visibility = View.VISIBLE

@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.omid.filimo.R
 import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.databinding.FragmentMyfilmsBinding
 
@@ -32,11 +33,11 @@ class MyFilmsFragment : Fragment() {
         binding = FragmentMyfilmsBinding.inflate(layoutInflater)
     }
 
-    private fun checkUiStatus(){
-        if (MainWidget.bnv.visibility == View.GONE){
+    private fun checkUiStatus() {
+        if (MainWidget.bnv.visibility == View.GONE) {
             MainWidget.bnv.visibility = View.VISIBLE
         }
-        if (MainWidget.toolbar.visibility == View.GONE){
+        if (MainWidget.toolbar.visibility == View.GONE) {
             MainWidget.toolbar.visibility = View.VISIBLE
         }
     }
@@ -44,12 +45,12 @@ class MyFilmsFragment : Fragment() {
     private fun setupTabLayout() {
         binding.apply {
             tabLayout = tabMyFilms
-            tabLayout.addTab(tabLayout.newTab().setText("نشان شده ها"))
-            tabLayout.addTab(tabLayout.newTab().setText("مشاهده شده ها"))
-            tabLayout.addTab(tabLayout.newTab().setText("گالری آفلاین"))
-            tabLayout.tabGravity =TabLayout.GRAVITY_FILL
-            vpTab.adapter = TabAdapter(tabLayout.tabCount,this@MyFilmsFragment)
-            tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.bookmark)))
+            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.viewed)))
+            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.offline_gallery)))
+            tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+            vpTab.adapter = TabAdapter(tabLayout.tabCount, this@MyFilmsFragment)
+            tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     vpTab.currentItem = tab!!.position
                 }
@@ -67,7 +68,7 @@ class MyFilmsFragment : Fragment() {
             vpTab.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    when(position){
+                    when (position) {
                         0 -> tabLayout.getTabAt(position)?.select()
                         1 -> tabLayout.getTabAt(position)?.select()
                         2 -> tabLayout.getTabAt(position)?.select()
@@ -77,9 +78,7 @@ class MyFilmsFragment : Fragment() {
         }
     }
 
-    private fun clickEvents(){
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-
-        }
+    private fun clickEvents() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { }
     }
 }

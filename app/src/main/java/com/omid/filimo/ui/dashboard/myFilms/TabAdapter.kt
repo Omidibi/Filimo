@@ -7,6 +7,7 @@ import com.omid.filimo.fragments.offlineGalleryFragment.OfflineGalleryFragment
 import com.omid.filimo.fragments.viewedFragment.ViewedFragment
 
 class TabAdapter(private val totalTabs: Int, fragment: Fragment) : FragmentStateAdapter(fragment) {
+
     override fun getItemCount(): Int {
         return totalTabs
     }
@@ -19,5 +20,4 @@ class TabAdapter(private val totalTabs: Int, fragment: Fragment) : FragmentState
             else -> createFragment(position)
         }
     }
-
 }

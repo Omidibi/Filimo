@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.omid.filimo.R
@@ -22,7 +21,6 @@ import java.io.File
 class OfflineGalleryFragment : Fragment() {
 
     private lateinit var binding: FragmentOfflineGalleryBinding
-    private lateinit var offlineGalleryViewModel: OfflineGalleryViewModel
     private val appSettings = AppSettings()
     private val videoList = ArrayList<File>()
     private val videoListQ = ArrayList<Uri>()
@@ -42,38 +40,38 @@ class OfflineGalleryFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.apply {
-            if (appSettings.getLock() == 0){
+            if (appSettings.getLock() == 0) {
                 rvOffline.visibility = View.GONE
-                rvOfflineQ.visibility  = View.GONE
+                rvOfflineQ.visibility = View.GONE
                 emptyOffline.visibility = View.GONE
-            }else {
+            } else {
                 rvOffline.visibility = View.GONE
-                rvOfflineQ.visibility  = View.GONE
+                rvOfflineQ.visibility = View.GONE
                 emptyOffline.visibility = View.VISIBLE
                 loadVideos()
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q){
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                     emptyOffline.visibility = View.GONE
                     rvOffline.visibility = View.GONE
                     rvOfflineQ.visibility = View.VISIBLE
-                    rvOfflineQ.adapter = OfflineGalleryAdapterQ(videoListQ,this@OfflineGalleryFragment)
-                    rvOfflineQ.layoutManager = GridLayoutManager(requireContext(),3)
-                }else {
+                    rvOfflineQ.adapter = OfflineGalleryAdapterQ(videoListQ, this@OfflineGalleryFragment)
+                    rvOfflineQ.layoutManager = GridLayoutManager(requireContext(), 3)
+                } else {
                     emptyOffline.visibility = View.GONE
                     rvOffline.visibility = View.VISIBLE
                     rvOfflineQ.visibility = View.GONE
-                    rvOffline.adapter = OfflineGalleryAdapter(videoList,this@OfflineGalleryFragment)
-                    rvOffline.layoutManager = GridLayoutManager(requireContext(),3)
+                    rvOffline.adapter = OfflineGalleryAdapter(videoList, this@OfflineGalleryFragment)
+                    rvOffline.layoutManager = GridLayoutManager(requireContext(), 3)
                 }
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q){
-                    if (videoListQ.isEmpty()){
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                    if (videoListQ.isEmpty()) {
                         rvOffline.visibility = View.GONE
-                        rvOfflineQ.visibility  = View.GONE
+                        rvOfflineQ.visibility = View.GONE
                         emptyOffline.visibility = View.VISIBLE
                     }
-                }else {
-                    if (videoList.isEmpty()){
+                } else {
+                    if (videoList.isEmpty()) {
                         rvOffline.visibility = View.GONE
-                        rvOfflineQ.visibility  = View.GONE
+                        rvOfflineQ.visibility = View.GONE
                         emptyOffline.visibility = View.VISIBLE
                     }
                 }
@@ -81,76 +79,75 @@ class OfflineGalleryFragment : Fragment() {
         }
     }
 
-    private fun setupBinding(){
+    private fun setupBinding() {
         binding = FragmentOfflineGalleryBinding.inflate(layoutInflater)
-        offlineGalleryViewModel = ViewModelProvider(requireActivity())[OfflineGalleryViewModel::class.java]
     }
 
-    private fun checkUi(){
+    private fun checkUi() {
         binding.apply {
-            if (videoList.isEmpty()){
-                if (appSettings.getLock() == 0){
+            if (videoList.isEmpty()) {
+                if (appSettings.getLock() == 0) {
                     rvOffline.visibility = View.GONE
-                    rvOfflineQ.visibility  = View.GONE
+                    rvOfflineQ.visibility = View.GONE
                     emptyOffline.visibility = View.GONE
-                }else {
+                } else {
                     rvOffline.visibility = View.GONE
-                    rvOfflineQ.visibility  = View.GONE
+                    rvOfflineQ.visibility = View.GONE
                     emptyOffline.visibility = View.VISIBLE
                 }
-            }else{
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q){
+            } else {
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                     emptyOffline.visibility = View.GONE
                     rvOffline.visibility = View.GONE
                     rvOfflineQ.visibility = View.VISIBLE
-                    rvOfflineQ.adapter = OfflineGalleryAdapterQ(videoListQ,this@OfflineGalleryFragment)
-                    rvOfflineQ.layoutManager = GridLayoutManager(requireContext(),3)
-                }else {
+                    rvOfflineQ.adapter = OfflineGalleryAdapterQ(videoListQ, this@OfflineGalleryFragment)
+                    rvOfflineQ.layoutManager = GridLayoutManager(requireContext(), 3)
+                } else {
                     emptyOffline.visibility = View.GONE
                     rvOffline.visibility = View.VISIBLE
                     rvOfflineQ.visibility = View.GONE
-                    rvOffline.adapter = OfflineGalleryAdapter(videoList,this@OfflineGalleryFragment)
-                    rvOffline.layoutManager = GridLayoutManager(requireContext(),3)
+                    rvOffline.adapter = OfflineGalleryAdapter(videoList, this@OfflineGalleryFragment)
+                    rvOffline.layoutManager = GridLayoutManager(requireContext(), 3)
                 }
             }
-            if (videoListQ.isEmpty()){
-                if (appSettings.getLock() == 0){
+            if (videoListQ.isEmpty()) {
+                if (appSettings.getLock() == 0) {
                     rvOffline.visibility = View.GONE
-                    rvOfflineQ.visibility  = View.GONE
+                    rvOfflineQ.visibility = View.GONE
                     emptyOffline.visibility = View.GONE
-                }else {
+                } else {
                     rvOffline.visibility = View.GONE
-                    rvOfflineQ.visibility  = View.GONE
+                    rvOfflineQ.visibility = View.GONE
                     emptyOffline.visibility = View.VISIBLE
                 }
-            }else{
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q){
+            } else {
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                     emptyOffline.visibility = View.GONE
                     rvOffline.visibility = View.GONE
                     rvOfflineQ.visibility = View.VISIBLE
-                    rvOfflineQ.adapter = OfflineGalleryAdapterQ(videoListQ,this@OfflineGalleryFragment)
-                    rvOfflineQ.layoutManager = GridLayoutManager(requireContext(),3)
-                }else {
+                    rvOfflineQ.adapter = OfflineGalleryAdapterQ(videoListQ, this@OfflineGalleryFragment)
+                    rvOfflineQ.layoutManager = GridLayoutManager(requireContext(), 3)
+                } else {
                     emptyOffline.visibility = View.GONE
                     rvOffline.visibility = View.VISIBLE
                     rvOfflineQ.visibility = View.GONE
-                    rvOffline.adapter = OfflineGalleryAdapter(videoList,this@OfflineGalleryFragment)
-                    rvOffline.layoutManager = GridLayoutManager(requireContext(),3)
+                    rvOffline.adapter = OfflineGalleryAdapter(videoList, this@OfflineGalleryFragment)
+                    rvOffline.layoutManager = GridLayoutManager(requireContext(), 3)
                 }
             }
         }
     }
 
-    private fun loadVideos(){
+    private fun loadVideos() {
         binding.apply {
-            if (appSettings.getLock() == 0){
+            if (appSettings.getLock() == 0) {
                 clLoginStatus.visibility = View.VISIBLE
                 rvOfflineQ.visibility = View.GONE
                 rvOffline.visibility = View.GONE
                 emptyOffline.visibility = View.GONE
-            }else {
+            } else {
                 clLoginStatus.visibility = View.GONE
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q){
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                     videoListQ.clear()
                     val resolver = requireContext().contentResolver
                     val videosUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
@@ -183,7 +180,7 @@ class OfflineGalleryFragment : Fragment() {
         }
     }
 
-    private fun clickEvents(){
+    private fun clickEvents() {
         binding.apply {
             btnLoginRegister.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment)

@@ -2,5 +2,5 @@ package com.omid.filimo.api
 
 object InitIService {
 
-    val iService = ApiRetrofit.retrofit.create(IService::class.java)
+    val iService: IService = ApiRetrofit.retrofit.create(IService::class.java)
 }

@@ -6,6 +6,6 @@ import com.omid.filimo.utils.configuration.AppConfiguration
 object RoomDBInstance {
 
     val roomDbInstance = Room.databaseBuilder(AppConfiguration.getContext(), RoomDataBase::class.java, "tbl_viewed")
-        .allowMainThreadQueries()
-        .build()
+            .allowMainThreadQueries()
+            .build()
 }

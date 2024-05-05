@@ -39,6 +39,22 @@
     <string name="download_completed">اتمام دانلود</string>
     <string name="empty_offline">گالری آفلاین خالی می باشد</string>
     <string name="check_login">برای استفاده از گالری آفلاین\nابتدا وارد شوید یا ثبت نام کنید</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bookmark">نشان شده ها</string>
+    <string name="viewed">مشاهده شده ها</string>
+    <string name="offline_gallery">گالری آفلاین</string>
+    <string name="not_be_empty">این فیلد نباید خالی باشد</string>
+    <string name="not_found_email">چنین ایمیلی یافت نشد</string>
+    <string name="send_request_to_email">درخواست شما به ایمیلتان ارسال شد</string>
+    <string name="you_login">شما وارد حساب خود شدید</string>
+    <string name="name_or_email_wrong">نام یا ایمیل شما اشتباه میباشد</string>
+    <string name="exit_account">شما از حساب خارج شدید</string>
+    <string name="update_profile">اطلاعات حساب کاربری شما بروز شد</string>
+    <string name="you_register">ثبت نام شما با موفقیت انجام شد</string>
+    <string name="type_comment_to_send">نظری بنویسید سپس ارسال کنید</string>
+    <string name="send_comment_ok">نظر شما ارسال شد</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+    <string name="message_dialog_main_activity">برای وارد شدن به حساب کاربری ابتدا وارد شوید یا ثبت نام کنید</string>
+    <string name="message_send_comment">برای ارسال نظر ابتدا وارد شوید یا ثبت نام کنید</string>
+    <string name="message_play_or_register">برای دیدن فیلم ابتدا وارد شوید یا ثبت نام کنید</string>
 </resources>

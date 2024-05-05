@@ -45,25 +45,25 @@ class SearchFragment : Fragment() {
         ProgressBarStatus.pbStatus(binding.pbSearch)
     }
 
-    private fun checkStatusUI(){
+    private fun checkStatusUI() {
         binding.apply {
-            if (MainWidget.bnv.visibility == View.VISIBLE){
+            if (MainWidget.bnv.visibility == View.VISIBLE) {
                 MainWidget.bnv.visibility = View.GONE
             }
-            if (MainWidget.toolbar.visibility == View.VISIBLE){
+            if (MainWidget.toolbar.visibility == View.VISIBLE) {
                 MainWidget.toolbar.visibility = View.GONE
             }
         }
     }
 
-    private fun checkNetwork(){
+    private fun checkNetwork() {
         binding.apply {
-            if (searchViewModel.networkAvailable()){
+            if (searchViewModel.networkAvailable()) {
                 rvSearch.visibility = View.VISIBLE
                 mcv.visibility = View.VISIBLE
                 pbSearch.visibility = View.GONE
                 liveNoConnection.visibility = View.GONE
-            }else {
+            } else {
                 rvSearch.visibility = View.GONE
                 mcv.visibility = View.GONE
                 pbSearch.visibility = View.GONE
@@ -72,14 +72,14 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun setupBinding(){
+    private fun setupBinding() {
         binding = FragmentSearchBinding.inflate(layoutInflater)
         searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
     }
 
-    private fun searchViewStatus(){
+    private fun searchViewStatus() {
         binding.apply {
-            sv.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener{
+            sv.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
 
                 override fun onQueryTextSubmit(query: String?): Boolean {
 
@@ -88,21 +88,21 @@ class SearchFragment : Fragment() {
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     newText?.let { it ->
-                        searchViewModel.checkNetworkConnection.observe(owner){ isConnect->
-                            if (!isConnect){
-                                sv.setQuery("",false)
+                        searchViewModel.checkNetworkConnection.observe(owner) { isConnect ->
+                            if (!isConnect) {
+                                sv.setQuery("", false)
                             }
                         }
-                        if (it.isEmpty()){
+                        if (it.isEmpty()) {
                             rvSearch.visibility = View.GONE
                         } else {
-                            searchViewModel.getSearchVideo(newText).observe(owner){ searchModel->
+                            searchViewModel.getSearchVideo(newText).observe(owner) { searchModel ->
                                 rvSearch.visibility = View.VISIBLE
                                 mcv.visibility = View.VISIBLE
                                 pbSearch.visibility = View.GONE
                                 liveNoConnection.visibility = View.GONE
-                                rvSearch.adapter = searchModel?.search?.let { SearchAdapter(it,this@SearchFragment) }
-                                rvSearch.layoutManager = GridLayoutManager(requireContext(),3)
+                                rvSearch.adapter = searchModel?.search?.let { SearchAdapter(it, this@SearchFragment) }
+                                rvSearch.layoutManager = GridLayoutManager(requireContext(), 3)
                             }
                         }
                     }
@@ -114,15 +114,15 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun searchObserver(){
+    private fun searchObserver() {
         binding.apply {
-            searchViewModel.checkNetworkConnection.observe(owner){ isConnect->
-                if (isConnect){
+            searchViewModel.checkNetworkConnection.observe(owner) { isConnect ->
+                if (isConnect) {
                     rvSearch.visibility = View.GONE
                     mcv.visibility = View.VISIBLE
                     pbSearch.visibility = View.GONE
                     liveNoConnection.visibility = View.GONE
-                }else {
+                } else {
                     rvSearch.visibility = View.GONE
                     mcv.visibility = View.GONE
                     pbSearch.visibility = View.GONE
@@ -132,9 +132,9 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun clickEvents(){
+    private fun clickEvents() {
         binding.apply {
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
                 findNavController().popBackStack()
                 MainWidget.bnv.visibility = View.VISIBLE
                 MainWidget.toolbar.visibility = View.VISIBLE

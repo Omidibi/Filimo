@@ -25,7 +25,7 @@ class AppSettings {
     }
 
     fun getEmail(): String? {
-        return sharedPreferences.getString("email","")
+        return sharedPreferences.getString("email", "")
     }
 
     fun password(password: String) {
@@ -34,7 +34,7 @@ class AppSettings {
     }
 
     fun getPassword(): String? {
-        return sharedPreferences.getString("password","")
+        return sharedPreferences.getString("password", "")
     }
 
     fun name(name: String) {
@@ -43,7 +43,7 @@ class AppSettings {
     }
 
     fun getName(): String? {
-        return sharedPreferences.getString("name","")
+        return sharedPreferences.getString("name", "")
     }
 
     fun phone(phone: String) {
@@ -52,7 +52,7 @@ class AppSettings {
     }
 
     fun getPhone(): String? {
-        return sharedPreferences.getString("phone","")
+        return sharedPreferences.getString("phone", "")
     }
 
     fun userId(userId: String?) {
@@ -61,49 +61,63 @@ class AppSettings {
     }
 
     fun getUserId(): String? {
-        return sharedPreferences.getString("userId","")
+        return sharedPreferences.getString("userId", "")
     }
 
-    fun saveRelate(related: Related){
-        editor.putString("catId",related.catId)
-        editor.putString("categoryName",related.categoryName)
-        editor.putString("id",related.id)
-        editor.putString("rateAvg",related.rateAvg)
-        editor.putString("totalViewer",related.totalViewer)
-        editor.putString("videoDescription",related.videoDescription)
-        editor.putString("videoDuration",related.videoDuration)
-        editor.putString("videoId",related.videoId)
-        editor.putString("videoThumbnailB",related.videoThumbnailB)
-        editor.putString("videoThumbnailS",related.videoThumbnailS)
-        editor.putString("videoTitle",related.videoTitle)
-        editor.putString("videoType",related.videoType)
-        editor.putString("videoUrl",related.videoUrl)
+    fun saveRelate(related: Related) {
+        editor.putString("catId", related.catId)
+        editor.putString("categoryName", related.categoryName)
+        editor.putString("id", related.id)
+        editor.putString("rateAvg", related.rateAvg)
+        editor.putString("totalViewer", related.totalViewer)
+        editor.putString("videoDescription", related.videoDescription)
+        editor.putString("videoDuration", related.videoDuration)
+        editor.putString("videoId", related.videoId)
+        editor.putString("videoThumbnailB", related.videoThumbnailB)
+        editor.putString("videoThumbnailS", related.videoThumbnailS)
+        editor.putString("videoTitle", related.videoTitle)
+        editor.putString("videoType", related.videoType)
+        editor.putString("videoUrl", related.videoUrl)
         editor.apply()
     }
 
-    fun getRelated(): Related{
-        val catId = sharedPreferences.getString("catId","")
-        val categoryName = sharedPreferences.getString("categoryName","")
-        val id = sharedPreferences.getString("id","")
-        val rateAvg = sharedPreferences.getString("rateAvg","")
-        val totalViewer = sharedPreferences.getString("totalViewer","")
-        val videoDescription = sharedPreferences.getString("videoDescription","")
-        val videoDuration = sharedPreferences.getString("videoDuration","")
-        val videoId = sharedPreferences.getString("videoId","")
-        val videoThumbnailB = sharedPreferences.getString("videoThumbnailB","")
-        val videoThumbnailS = sharedPreferences.getString("videoThumbnailS","")
-        val videoTitle = sharedPreferences.getString("videoTitle","")
-        val videoType = sharedPreferences.getString("videoType","")
-        val videoUrl = sharedPreferences.getString("videoUrl","")
-        return Related(catId!!,categoryName!!,id!!,rateAvg!!,totalViewer!!,videoDescription!!,videoDuration!!,videoId!!,videoThumbnailB!!,videoThumbnailS!!,videoTitle!!,videoType!!,videoUrl!!)
+    fun getRelated(): Related {
+        val catId = sharedPreferences.getString("catId", "")
+        val categoryName = sharedPreferences.getString("categoryName", "")
+        val id = sharedPreferences.getString("id", "")
+        val rateAvg = sharedPreferences.getString("rateAvg", "")
+        val totalViewer = sharedPreferences.getString("totalViewer", "")
+        val videoDescription = sharedPreferences.getString("videoDescription", "")
+        val videoDuration = sharedPreferences.getString("videoDuration", "")
+        val videoId = sharedPreferences.getString("videoId", "")
+        val videoThumbnailB = sharedPreferences.getString("videoThumbnailB", "")
+        val videoThumbnailS = sharedPreferences.getString("videoThumbnailS", "")
+        val videoTitle = sharedPreferences.getString("videoTitle", "")
+        val videoType = sharedPreferences.getString("videoType", "")
+        val videoUrl = sharedPreferences.getString("videoUrl", "")
+        return Related(
+            catId!!,
+            categoryName!!,
+            id!!,
+            rateAvg!!,
+            totalViewer!!,
+            videoDescription!!,
+            videoDuration!!,
+            videoId!!,
+            videoThumbnailB!!,
+            videoThumbnailS!!,
+            videoTitle!!,
+            videoType!!,
+            videoUrl!!
+        )
     }
 
-    fun saveStatusFragment(status: Int){
+    fun saveStatusFragment(status: Int) {
         editor.putInt("statusFragment", status)
         editor.commit()
     }
 
-    fun getStatusFragment(): Int{
-        return sharedPreferences.getInt("statusFragment",0)
+    fun getStatusFragment(): Int {
+        return sharedPreferences.getInt("statusFragment", 0)
     }
 }

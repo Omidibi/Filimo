@@ -29,9 +29,9 @@ class ShowCaseViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun getBanner(){
-        if (checkNetworkConnection.value == true){
-            CoroutineScope(Dispatchers.IO).launch{
+    fun getBanner() {
+        if (checkNetworkConnection.value == true) {
+            CoroutineScope(Dispatchers.IO).launch {
                 webServiceCaller.getBanner().apply {
                     banner.postValue(this)
                 }
@@ -39,9 +39,9 @@ class ShowCaseViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun getHomeVideos(){
-        if (checkNetworkConnection.value == true){
-            CoroutineScope(Dispatchers.IO).launch{
+    fun getHomeVideos() {
+        if (checkNetworkConnection.value == true) {
+            CoroutineScope(Dispatchers.IO).launch {
                 webServiceCaller.getHomeVideo().apply {
                     homeVideos.postValue(this)
                 }

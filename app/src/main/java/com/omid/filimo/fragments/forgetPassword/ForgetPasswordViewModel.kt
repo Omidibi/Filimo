@@ -15,7 +15,7 @@ class ForgetPasswordViewModel(application: Application) : AndroidViewModel(appli
     val checkNetworkConnection = CheckNetworkConnection(application)
     private val forgetPasswordModel: LiveData<ForgetPasswordModel> = webServiceCaller.forgetPasswordModel
 
-    fun getForgetPassword(email: String): LiveData<ForgetPasswordModel>{
+    fun getForgetPassword(email: String): LiveData<ForgetPasswordModel> {
         webServiceCaller.getForgetPassword(email)
         return forgetPasswordModel
     }

@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun setupBinding(){
+    private fun setupBinding() {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
     }
@@ -63,13 +63,13 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun checkLiveInternet(){
+    private fun checkLiveInternet() {
         binding.apply {
-            loginViewModel.checkNetworkConnection.observe(owner){ isConnect->
-                if (isConnect){
+            loginViewModel.checkNetworkConnection.observe(owner) { isConnect ->
+                if (isConnect) {
                     clLogin.visibility = View.VISIBLE
                     liveNoConnection.visibility = View.GONE
-                }else {
+                } else {
                     clLogin.visibility = View.GONE
                     liveNoConnection.visibility = View.VISIBLE
                 }
@@ -78,33 +78,33 @@ class LoginFragment : Fragment() {
     }
 
     private fun userLoginObserver(email: String, password: String) {
-        loginViewModel.getUserLogin(email, password).observe(owner) { userLoginModel->
-            for (i in userLoginModel.userLogin){
-                if (i.success.contains("1")){
+        loginViewModel.getUserLogin(email, password).observe(owner) { userLoginModel ->
+            for (i in userLoginModel.userLogin) {
+                if (i.success.contains("1")) {
                     appSettings.lock(1)
                     appSettings.name(i.name)
                     appSettings.email(i.email)
                     appSettings.userId(i.userId)
-                    Toast.makeText(requireContext(),"شما وارد حساب خود شدید",Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.you_login), Toast.LENGTH_LONG).show()
                 } else if (i.success.contains("0")) {
-                    Toast.makeText(requireContext(),"نام یا ایمیل شما اشتباه میباشد",Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), R.string.name_or_email_wrong, Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
-    private fun clickEvents(){
+    private fun clickEvents() {
         binding.apply {
 
             btnLogin.setOnClickListener {
-                if (email.length() == 0){
-                    email.error = "این فیلد نباید خالی باشد"
+                if (email.length() == 0) {
+                    email.error = getString(R.string.not_be_empty)
                 }
-                if (password.length() == 0){
-                    password.error = "این فیلد نباید خالی باشد"
+                if (password.length() == 0) {
+                    password.error = getString(R.string.not_be_empty)
                 }
-                if (email.length() != 0 && password.length() != 0){
-                    userLoginObserver(email.text.toString(),password.text.toString())
+                if (email.length() != 0 && password.length() != 0) {
+                    userLoginObserver(email.text.toString(), password.text.toString())
                 }
             }
 

@@ -23,12 +23,12 @@ class VideoPlayerViewModel(application: Application) : AndroidViewModel(applicat
     private val commentModel: LiveData<CommentModel> = webServiceCaller.commentModel
     val checkNetworkConnection = CheckNetworkConnection(application)
 
-    fun getSingleVideo(videoId: String): LiveData<SingleVideoModel>{
+    fun getSingleVideo(videoId: String): LiveData<SingleVideoModel> {
         webServiceCaller.getSingleVideo(videoId)
         return singleVideoModel
     }
 
-    fun getComment(commentText: String,userName: String,postId: String): LiveData<CommentModel>{
+    fun getComment(commentText: String, userName: String, postId: String): LiveData<CommentModel> {
         webServiceCaller.getComment(commentText, userName, postId)
         return commentModel
     }
@@ -37,18 +37,18 @@ class VideoPlayerViewModel(application: Application) : AndroidViewModel(applicat
         return NetworkAvailable.isNetworkAvailable(AppConfiguration.getContext())
     }
 
-    fun insertViewed(video: Video, id: String){
-        if (RoomDBInstance.roomDbInstance.dao().searchByIdViewed(id).isEmpty()){
+    fun insertViewed(video: Video, id: String) {
+        if (RoomDBInstance.roomDbInstance.dao().searchByIdViewed(id).isEmpty()) {
             RoomDBInstance.roomDbInstance.dao().insertViewed(video)
         }
     }
 
-    fun isBookmarkEmpty(id: String): Boolean{
+    fun isBookmarkEmpty(id: String): Boolean {
         return RoomDBInstance.roomDbInstance.dao().searchByIdBookmark(id).isEmpty()
     }
 
-    fun insertBookmark(videoBookmark: VideoBookmark,id: String,imgBookmark: AppCompatImageView){
-        if (RoomDBInstance.roomDbInstance.dao().searchByIdBookmark(id).isEmpty()){
+    fun insertBookmark(videoBookmark: VideoBookmark, id: String, imgBookmark: AppCompatImageView) {
+        if (RoomDBInstance.roomDbInstance.dao().searchByIdBookmark(id).isEmpty()) {
             RoomDBInstance.roomDbInstance.dao().insertBookmark(videoBookmark)
             Glide.with(AppConfiguration.getContext()).load(R.drawable.bookmark).into(imgBookmark)
         } else {

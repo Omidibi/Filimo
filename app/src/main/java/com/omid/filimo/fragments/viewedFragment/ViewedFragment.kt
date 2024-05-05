@@ -37,37 +37,37 @@ class ViewedFragment : Fragment() {
         viewedViewModel = ViewModelProvider(requireActivity())[ViewedViewModel::class.java]
     }
 
-    private fun checkNetwork(){
+    private fun checkNetwork() {
         binding.apply {
-            if (viewedViewModel.networkAvailable()){
+            if (viewedViewModel.networkAvailable()) {
                 rvViewed.visibility = View.VISIBLE
                 liveNoConnection.visibility = View.GONE
-            }else {
+            } else {
                 rvViewed.visibility = View.GONE
                 liveNoConnection.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun checkUi(){
+    private fun checkUi() {
         binding.apply {
-            if (viewedViewModel.isEmptyViewed()){
+            if (viewedViewModel.isEmptyViewed()) {
                 emptyViewed.visibility = View.VISIBLE
                 rvViewed.visibility = View.GONE
-            }else{
+            } else {
                 emptyViewed.visibility = View.GONE
                 rvViewed.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun checkLiveInternet(){
+    private fun checkLiveInternet() {
         binding.apply {
-            viewedViewModel.checkNetworkConnection.observe(viewLifecycleOwner){ isConnected->
-                if (isConnected){
+            viewedViewModel.checkNetworkConnection.observe(viewLifecycleOwner) { isConnected ->
+                if (isConnected) {
                     rvViewed.visibility = View.VISIBLE
                     liveNoConnection.visibility = View.GONE
-                }else {
+                } else {
                     rvViewed.visibility = View.GONE
                     liveNoConnection.visibility = View.VISIBLE
                 }
@@ -75,10 +75,10 @@ class ViewedFragment : Fragment() {
         }
     }
 
-    private fun setupRvViewed(){
+    private fun setupRvViewed() {
         binding.apply {
-            rvViewed.adapter = ViewedAdapter(viewedViewModel.showAllViewed(),this@ViewedFragment)
-            rvViewed.layoutManager = GridLayoutManager(requireContext(),3)
+            rvViewed.adapter = ViewedAdapter(viewedViewModel.showAllViewed(), this@ViewedFragment)
+            rvViewed.layoutManager = GridLayoutManager(requireContext(), 3)
         }
     }
 }

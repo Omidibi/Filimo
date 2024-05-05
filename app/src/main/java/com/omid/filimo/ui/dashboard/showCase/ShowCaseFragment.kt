@@ -174,10 +174,7 @@ class ShowCaseFragment : Fragment() {
                 CustomUI.changeStatusOnClickEvent(MainWidget.bnv)
             }
 
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-
-
-            }
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){ }
         }
     }
 }

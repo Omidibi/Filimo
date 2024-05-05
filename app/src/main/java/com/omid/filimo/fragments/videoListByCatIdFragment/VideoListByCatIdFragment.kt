@@ -21,7 +21,7 @@ class VideoListByCatIdFragment : Fragment() {
 
     private lateinit var binding: FragmentVideoListByCatIdBinding
     private lateinit var videoListByCatIdViewModel: VideoListByCatIdViewModel
-    private lateinit var video : Category
+    private lateinit var video: Category
     private lateinit var owner: LifecycleOwner
 
     override fun onAttach(context: Context) {
@@ -45,27 +45,27 @@ class VideoListByCatIdFragment : Fragment() {
         clickEvents()
     }
 
-    private fun setupBinding(){
+    private fun setupBinding() {
         binding = FragmentVideoListByCatIdBinding.inflate(layoutInflater)
         videoListByCatIdViewModel = ViewModelProvider(this)[VideoListByCatIdViewModel::class.java]
     }
 
-    private fun checkStatusUI(){
+    private fun checkStatusUI() {
         binding.apply {
-            if (MainWidget.bnv.visibility == View.VISIBLE){
+            if (MainWidget.bnv.visibility == View.VISIBLE) {
                 MainWidget.bnv.visibility = View.GONE
             }
-            if (MainWidget.toolbar.visibility == View.VISIBLE){
+            if (MainWidget.toolbar.visibility == View.VISIBLE) {
                 MainWidget.toolbar.visibility = View.GONE
             }
         }
     }
 
-    private fun getData(){
+    private fun getData() {
         binding.apply {
-            video = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                requireArguments().getParcelable("category",Category::class.java)!!
-            }else {
+            video = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requireArguments().getParcelable("category", Category::class.java)!!
+            } else {
                 requireArguments().getParcelable("category")!!
             }
             toolbarTitle.text = video.categoryName
@@ -76,7 +76,7 @@ class VideoListByCatIdFragment : Fragment() {
         ProgressBarStatus.pbStatus(binding.pbCatById)
     }
 
-    private fun checkNetwork(){
+    private fun checkNetwork() {
         binding.apply {
             if (videoListByCatIdViewModel.networkAvailable()) {
                 srl.visibility = View.VISIBLE
@@ -90,22 +90,22 @@ class VideoListByCatIdFragment : Fragment() {
         }
     }
 
-    private fun videoByCatIdObserver(){
+    private fun videoByCatIdObserver() {
         binding.apply {
-            if (isAdded){
-                videoListByCatIdViewModel.checkNetworkConnection.observe(owner){ isConnect->
+            if (isAdded) {
+                videoListByCatIdViewModel.checkNetworkConnection.observe(owner) { isConnect ->
                     pbCatById.visibility = View.VISIBLE
                     srl.visibility = View.GONE
                     liveNoConnection.visibility = View.GONE
-                    if (isConnect){
-                        videoListByCatIdViewModel.getVideoListByCatId(video.cid).observe(owner){ catListByIdModel->
-                            pbCatById.visibility = View.GONE
-                            srl.visibility = View.VISIBLE
-                            liveNoConnection.visibility = View.GONE
-                            rvCatById.adapter = catListByIdModel?.categoryList?.let { VideoListByCatIdAdapter(it,this@VideoListByCatIdFragment) }
-                            rvCatById.layoutManager = GridLayoutManager(requireContext(),3)
-                        }
-                    }else {
+                    if (isConnect) {
+                        videoListByCatIdViewModel.getVideoListByCatId(video.cid).observe(owner) { catListByIdModel ->
+                                pbCatById.visibility = View.GONE
+                                srl.visibility = View.VISIBLE
+                                liveNoConnection.visibility = View.GONE
+                                rvCatById.adapter = catListByIdModel?.categoryList?.let { VideoListByCatIdAdapter(it, this@VideoListByCatIdFragment) }
+                                rvCatById.layoutManager = GridLayoutManager(requireContext(), 3)
+                            }
+                    } else {
                         pbCatById.visibility = View.GONE
                         srl.visibility = View.GONE
                         liveNoConnection.visibility = View.VISIBLE
@@ -115,7 +115,7 @@ class VideoListByCatIdFragment : Fragment() {
         }
     }
 
-    private fun srlStatus(){
+    private fun srlStatus() {
         binding.apply {
             srl.setOnRefreshListener {
                 pbCatById.visibility = View.VISIBLE
@@ -127,7 +127,7 @@ class VideoListByCatIdFragment : Fragment() {
         }
     }
 
-    private fun clickEvents(){
+    private fun clickEvents() {
         binding.apply {
 
             imgBack.setOnClickListener {
@@ -136,7 +136,7 @@ class VideoListByCatIdFragment : Fragment() {
                 MainWidget.toolbar.visibility = View.VISIBLE
             }
 
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
                 findNavController().popBackStack()
                 MainWidget.bnv.visibility = View.VISIBLE
                 MainWidget.toolbar.visibility = View.VISIBLE

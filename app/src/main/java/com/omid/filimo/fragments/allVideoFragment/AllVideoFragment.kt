@@ -41,17 +41,17 @@ class AllVideoFragment : Fragment() {
         clickEvents()
     }
 
-    private fun setupBinding(){
+    private fun setupBinding() {
         binding = FragmentAllVideoBinding.inflate(layoutInflater)
         allVideoViewModel = ViewModelProvider(this)[AllVideoViewModel::class.java]
     }
 
-    private fun checkStatusUI(){
+    private fun checkStatusUI() {
         binding.apply {
-            if (MainWidget.bnv.visibility == View.VISIBLE){
+            if (MainWidget.bnv.visibility == View.VISIBLE) {
                 MainWidget.bnv.visibility = View.GONE
             }
-            if (MainWidget.toolbar.visibility == View.VISIBLE){
+            if (MainWidget.toolbar.visibility == View.VISIBLE) {
                 MainWidget.toolbar.visibility = View.GONE
             }
         }
@@ -61,7 +61,7 @@ class AllVideoFragment : Fragment() {
         ProgressBarStatus.pbStatus(binding.pbAllVideo)
     }
 
-    private fun checkNetwork(){
+    private fun checkNetwork() {
         binding.apply {
             if (allVideoViewModel.networkAvailable()) {
                 srl.visibility = View.VISIBLE
@@ -75,22 +75,22 @@ class AllVideoFragment : Fragment() {
         }
     }
 
-    private fun allVideoObserver(){
+    private fun allVideoObserver() {
         binding.apply {
-            if (isAdded){
-                allVideoViewModel.checkNetworkConnection.observe(owner){ isConnect->
+            if (isAdded) {
+                allVideoViewModel.checkNetworkConnection.observe(owner) { isConnect ->
                     pbAllVideo.visibility = View.VISIBLE
                     srl.visibility = View.GONE
                     liveNoConnection.visibility = View.GONE
-                    if (isConnect){
-                        allVideoViewModel.allVideoModel.observe(owner){ allVideoModel->
+                    if (isConnect) {
+                        allVideoViewModel.allVideoModel.observe(owner) { allVideoModel ->
                             pbAllVideo.visibility = View.GONE
                             srl.visibility = View.VISIBLE
                             liveNoConnection.visibility = View.GONE
-                            rvAllVideo.adapter = allVideoModel?.allVideo?.let { AllVideoListAdapter(it,this@AllVideoFragment) }
-                            rvAllVideo.layoutManager = GridLayoutManager(requireContext(),3)
+                            rvAllVideo.adapter = allVideoModel?.allVideo?.let { AllVideoListAdapter(it, this@AllVideoFragment) }
+                            rvAllVideo.layoutManager = GridLayoutManager(requireContext(), 3)
                         }
-                    }else {
+                    } else {
                         pbAllVideo.visibility = View.GONE
                         srl.visibility = View.GONE
                         liveNoConnection.visibility = View.VISIBLE
@@ -100,7 +100,7 @@ class AllVideoFragment : Fragment() {
         }
     }
 
-    private fun srlStatus(){
+    private fun srlStatus() {
         binding.apply {
             srl.setOnRefreshListener {
                 pbAllVideo.visibility = View.VISIBLE
@@ -112,7 +112,7 @@ class AllVideoFragment : Fragment() {
         }
     }
 
-    private fun clickEvents(){
+    private fun clickEvents() {
         binding.apply {
 
             imgBack.setOnClickListener {
@@ -121,7 +121,7 @@ class AllVideoFragment : Fragment() {
                 MainWidget.toolbar.visibility = View.VISIBLE
             }
 
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
                 findNavController().popBackStack()
                 MainWidget.bnv.visibility = View.VISIBLE
                 MainWidget.toolbar.visibility = View.VISIBLE

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.omid.filimo.R
 import com.omid.filimo.config.AppSettings
 import com.omid.filimo.databinding.FragmentUserRegisterBinding
 
@@ -55,13 +56,13 @@ class UserRegisterFragment : Fragment() {
         }
     }
 
-    private fun checkLiveInternet(){
+    private fun checkLiveInternet() {
         binding.apply {
-            userRegisterViewModel.checkNetworkConnection.observe(owner){ isConnect->
-                if (isConnect){
+            userRegisterViewModel.checkNetworkConnection.observe(owner) { isConnect ->
+                if (isConnect) {
                     clRegister.visibility = View.VISIBLE
                     liveNoConnection.visibility = View.GONE
-                }else {
+                } else {
                     clRegister.visibility = View.GONE
                     liveNoConnection.visibility = View.VISIBLE
                 }
@@ -70,43 +71,43 @@ class UserRegisterFragment : Fragment() {
     }
 
     private fun registerObserver(name: String, email: String, password: String, phone: String) {
-        userRegisterViewModel.getRegister(name, email, password, phone).observe(owner) { userRegisterModel->
-            for (i in userRegisterModel.userRegister){
-                if (i.success.contains("0")){
-                    appSettings.email(email)
-                    appSettings.password(password)
-                    appSettings.name(name)
-                    appSettings.phone(phone)
-                    appSettings.lock(1)
-                    Toast.makeText(requireContext(),"ثبت نام شما با موفقیت انجام شد",Toast.LENGTH_LONG).show()
-                    findNavController().popBackStack()
-                    findNavController().popBackStack()
-                }else if (i.success.contains("1")){
-                    Toast.makeText(requireContext(),"ثبت نام انجام نشد\nبه دلیل: ${i.msg}",Toast.LENGTH_LONG).show()
-                    findNavController().popBackStack()
-                    findNavController().popBackStack()
+        userRegisterViewModel.getRegister(name, email, password, phone).observe(owner) { userRegisterModel ->
+                for (i in userRegisterModel.userRegister) {
+                    if (i.success.contains("0")) {
+                        appSettings.email(email)
+                        appSettings.password(password)
+                        appSettings.name(name)
+                        appSettings.phone(phone)
+                        appSettings.lock(1)
+                        Toast.makeText(requireContext(), R.string.you_register, Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
+                        findNavController().popBackStack()
+                    } else if (i.success.contains("1")) {
+                        Toast.makeText(requireContext(), i.msg, Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
+                        findNavController().popBackStack()
+                    }
                 }
-            }
         }
     }
 
     private fun clickEvents() {
         binding.apply {
             btnRegister.setOnClickListener {
-                if (name.length() == 0){
-                    name.error = "این فیلد نباید خالی باشد"
+                if (name.length() == 0) {
+                    name.error = getString(R.string.not_be_empty)
                 }
-                if (email.length() == 0){
-                    email.error = "این فیلد نباید خالی باشد"
+                if (email.length() == 0) {
+                    email.error = getString(R.string.not_be_empty)
                 }
-                if (password.length() == 0){
-                    password.error = "این فیلد نباید خالی باشد"
+                if (password.length() == 0) {
+                    password.error = getString(R.string.not_be_empty)
                 }
-                if (phone.length() == 0){
-                    phone.error = "این فیلد نباید خالی باشد"
+                if (phone.length() == 0) {
+                    phone.error = getString(R.string.not_be_empty)
                 }
-                if (name.length() != 0 && email.length() != 0 && password.length() != 0 && phone.length() != 0){
-                    registerObserver(name.text.toString(),email.text.toString(),password.text.toString(),phone.text.toString())
+                if (name.length() != 0 && email.length() != 0 && password.length() != 0 && phone.length() != 0) {
+                    registerObserver(name.text.toString(), email.text.toString(), password.text.toString(), phone.text.toString())
                 }
             }
 
@@ -119,7 +120,7 @@ class UserRegisterFragment : Fragment() {
                 findNavController().popBackStack()
             }
 
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
                 findNavController().popBackStack()
                 findNavController().popBackStack()
             }

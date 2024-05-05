@@ -1,6 +1,5 @@
 package com.omid.filimo.activity
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +10,7 @@ import com.omid.filimo.R
 import com.omid.filimo.config.AppSettings
 import com.omid.filimo.databinding.ActivityMainBinding
 import com.omid.filimo.ui.customView.customUI.CustomUI
+import com.omid.filimo.ui.customView.customUI.Dialogs
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickEvent(){
+    private fun clickEvent() {
         binding.apply {
             search.setOnClickListener {
                 navController.navigate(R.id.searchFragment)
@@ -81,20 +81,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             profile.setOnClickListener {
-                if (appSettings.getLock() == 0){
-                    val dialog = AlertDialog.Builder(this@MainActivity)
-                    dialog.setTitle("ثبت نام یا ورود")
-                    dialog.setMessage("برای وارد شدن به حساب کاربری ابتدا وارد شوید یا ثبت نام کنید")
-                    dialog.setPositiveButton("بله") { _, _ ->
-                        navController.navigate(R.id.loginFragment)
-                        MainWidget.bnv.visibility = View.GONE
-                        MainWidget.toolbar.visibility = View.GONE
-                    }
-                    dialog.setNegativeButton("خیر") { _, _ ->
-
-                    }
-                    dialog.show()
-                }else {
+                if (appSettings.getLock() == 0) {
+                    Dialogs.mainActivity(this@MainActivity, navController)
+                } else {
                     navController.navigate(R.id.userProfileFragment)
                     MainWidget.bnv.visibility = View.GONE
                     MainWidget.toolbar.visibility = View.GONE

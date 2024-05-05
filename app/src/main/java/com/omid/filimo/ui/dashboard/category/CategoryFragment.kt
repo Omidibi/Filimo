@@ -89,8 +89,6 @@ class CategoryFragment : Fragment() {
     }
 
     private fun clickEvents(){
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-
-        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){ }
     }
 }

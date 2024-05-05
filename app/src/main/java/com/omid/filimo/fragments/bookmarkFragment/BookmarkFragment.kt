@@ -32,42 +32,42 @@ class BookmarkFragment : Fragment() {
         checkNetwork()
     }
 
-    private fun setupBinding(){
+    private fun setupBinding() {
         binding = FragmentBookmarkFilmBinding.inflate(layoutInflater)
         bookmarkViewModel = ViewModelProvider(requireActivity())[BookmarkViewModel::class.java]
     }
 
-    private fun checkNetwork(){
+    private fun checkNetwork() {
         binding.apply {
-            if (bookmarkViewModel.networkAvailable()){
+            if (bookmarkViewModel.networkAvailable()) {
                 rvBookmark.visibility = View.VISIBLE
                 liveNoConnection.visibility = View.GONE
-            }else {
+            } else {
                 rvBookmark.visibility = View.GONE
                 liveNoConnection.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun checkUi(){
+    private fun checkUi() {
         binding.apply {
-            if (bookmarkViewModel.isEmptyBookmark()){
+            if (bookmarkViewModel.isEmptyBookmark()) {
                 emptyBookmark.visibility = View.VISIBLE
                 rvBookmark.visibility = View.GONE
-            }else{
+            } else {
                 emptyBookmark.visibility = View.GONE
                 rvBookmark.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun checkLiveInternet(){
+    private fun checkLiveInternet() {
         binding.apply {
-            bookmarkViewModel.checkNetworkConnection.observe(viewLifecycleOwner){ isConnected->
-                if (isConnected){
+            bookmarkViewModel.checkNetworkConnection.observe(viewLifecycleOwner) { isConnected ->
+                if (isConnected) {
                     rvBookmark.visibility = View.VISIBLE
                     liveNoConnection.visibility = View.GONE
-                }else {
+                } else {
                     rvBookmark.visibility = View.GONE
                     liveNoConnection.visibility = View.VISIBLE
                 }
@@ -75,10 +75,10 @@ class BookmarkFragment : Fragment() {
         }
     }
 
-    private fun setupRvViewed(){
+    private fun setupRvViewed() {
         binding.apply {
-            rvBookmark.adapter = BookmarkAdapter(bookmarkViewModel.showAllBookmark(),this@BookmarkFragment)
-            rvBookmark.layoutManager = GridLayoutManager(requireContext(),3)
+            rvBookmark.adapter = BookmarkAdapter(bookmarkViewModel.showAllBookmark(), this@BookmarkFragment)
+            rvBookmark.layoutManager = GridLayoutManager(requireContext(), 3)
         }
     }
 }

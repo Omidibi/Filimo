@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.omid.filimo.api.WebServiceCaller
-import com.omid.filimo.model.AllVideoModel
 import com.omid.filimo.model.SearchModel
 import com.omid.filimo.utils.configuration.AppConfiguration
 import com.omid.filimo.utils.internetLiveData.CheckNetworkConnection

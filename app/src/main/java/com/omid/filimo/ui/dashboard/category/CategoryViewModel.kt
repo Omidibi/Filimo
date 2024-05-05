@@ -16,14 +16,14 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     val categoryModel: LiveData<CategoryModel> = webServiceCaller.categoryModel
 
     init {
-        checkNetworkConnection.observeForever { isConnect->
+        checkNetworkConnection.observeForever { isConnect ->
             if (isConnect) {
                 getCategories()
             }
         }
     }
 
-    private fun getCategories(){
+    private fun getCategories() {
         if (checkNetworkConnection.value == true) {
             webServiceCaller.getCategories()
         }

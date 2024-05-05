@@ -57,7 +57,7 @@ interface IService {
     fun userLogin(
         @Query("email") email: String,
         @Query("password") password: String
-    ):Observable<UserLoginModel>
+    ): Observable<UserLoginModel>
 
     @GET("api.php?user_profile_update")
     fun userProfileUpdate(

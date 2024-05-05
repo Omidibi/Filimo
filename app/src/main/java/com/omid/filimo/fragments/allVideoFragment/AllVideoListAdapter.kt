@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -13,12 +16,18 @@ import com.omid.filimo.activity.MainWidget
 import com.omid.filimo.model.Video
 import com.omid.filimo.utils.configuration.AppConfiguration
 
-class AllVideoListAdapter(private val list: List<Video>,private val fragment: Fragment): RecyclerView.Adapter<AllVideoListVH>() {
+class AllVideoListAdapter(private val list: List<Video>, private val fragment: Fragment) : RecyclerView.Adapter<AllVideoListAdapter.AllVideoListVH>() {
+
+    inner class AllVideoListVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val cvAll = itemView.findViewById<CardView>(R.id.cv_all)!!
+        val imgAll = itemView.findViewById<AppCompatImageView>(R.id.img_all)!!
+        val txtAll = itemView.findViewById<AppCompatTextView>(R.id.txt_all)!!
+    }
 
     private val bundle = Bundle()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllVideoListVH {
-        return AllVideoListVH(LayoutInflater.from(AppConfiguration.getContext()).inflate(R.layout.all_video_list_row,null))
+        return AllVideoListVH(LayoutInflater.from(AppConfiguration.getContext()).inflate(R.layout.all_video_list_row, null))
     }
 
     override fun getItemCount(): Int {
@@ -31,8 +40,8 @@ class AllVideoListAdapter(private val list: List<Video>,private val fragment: Fr
             txtAll.text = allVideoInfo.videoTitle
             Glide.with(AppConfiguration.getContext()).load(allVideoInfo.videoThumbnailB).into(imgAll)
             cvAll.setOnClickListener {
-                bundle.putParcelable("video",allVideoInfo)
-                fragment.findNavController().navigate(R.id.action_allVideoFragment_to_videoPlayerFragment,bundle)
+                bundle.putParcelable("video", allVideoInfo)
+                fragment.findNavController().navigate(R.id.action_allVideoFragment_to_videoPlayerFragment, bundle)
                 MainWidget.toolbar.visibility = View.GONE
                 MainWidget.bnv.visibility = View.GONE
             }

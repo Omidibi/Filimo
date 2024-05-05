@@ -1,7 +1,6 @@
 package com.omid.filimo.fragments.videoPlayerFragment
 
 import android.Manifest
-import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Context
@@ -36,6 +35,7 @@ import com.omid.filimo.model.Related
 import com.omid.filimo.model.UserComment
 import com.omid.filimo.model.Video
 import com.omid.filimo.model.VideoBookmark
+import com.omid.filimo.ui.customView.customUI.Dialogs
 import com.omid.filimo.utils.progressBarStatus.ProgressBarStatus
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -252,25 +252,14 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
             sendComment.setOnClickListener {
                 if (appSettings.getLock() == 0){
-                    val dialog = AlertDialog.Builder(requireContext())
-                    dialog.setTitle("ثبت نام یا ورود")
-                    dialog.setMessage("برای ارسال نظر ابتدا وارد شوید یا ثبت نام کنید")
-                    dialog.setPositiveButton("بله") { _, _ ->
-                        findNavController().navigate(R.id.action_videoPlayerFragment_to_loginFragment)
-                        MainWidget.bnv.visibility = View.GONE
-                        MainWidget.toolbar.visibility = View.GONE
-                    }
-                    dialog.setNegativeButton("خیر") { _, _ ->
-
-                    }
-                    dialog.show()
+                    Dialogs.sendCommentDialog(requireContext(),this@VideoPlayerFragment)
                 }else {
                     if (typeComment.text?.isEmpty() == true){
-                        Toast.makeText(requireContext(),"نظری بنویسید سپس ارسال کنید",Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(),R.string.type_comment_to_send,Toast.LENGTH_LONG).show()
                     }else {
                         videoPlayerViewModel.getComment(typeComment.text.toString(),appSettings.getName().toString(),video.id).observe(owner){
                             typeComment.setText("")
-                            Toast.makeText(requireContext(),"نظر شما ارسال شد",Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(),R.string.send_comment_ok,Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -278,18 +267,7 @@ class VideoPlayerFragment : Fragment(), IOnSelectListener {
 
             btnPlayOrRegister.setOnClickListener{
                 if (appSettings.getLock() == 0){
-                    val dialog = AlertDialog.Builder(requireContext())
-                    dialog.setTitle("ثبت نام یا ورود")
-                    dialog.setMessage("برای دیدن فیلم ابتدا وارد شوید یا ثبت نام کنید")
-                    dialog.setPositiveButton("بله") { _, _ ->
-                        findNavController().navigate(R.id.action_videoPlayerFragment_to_loginFragment)
-                        MainWidget.bnv.visibility = View.GONE
-                        MainWidget.toolbar.visibility = View.GONE
-                    }
-                    dialog.setNegativeButton("خیر") { _, _ ->
-
-                    }
-                    dialog.show()
+                    Dialogs.playOrRegisterDialog(requireContext(),this@VideoPlayerFragment)
                 }else {
                     playVideo()
                 }
